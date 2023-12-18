@@ -1,12 +1,24 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  # As a user, I can see the dashboard
   root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # As a user, I can create a new class
+  # As a user, I can view a class
+  resources :s_classes, only: [:show, :create, :destroy] do
+    # As a user, I can add students to a class
+    resources :students, only: [:create, :update, :destroy]
+  end
+
+  # As a user, I can create a classroom
+  resources :classrooms, only: [:show, :create, :update, :destroy] do
+    # As a user, I can create a seating arrangement for a class in a classroom
+    # As a user, I can save a seating arrangement for a class in a classroom
+    resources :arrangements, [:create, :update]
+  end
 end
