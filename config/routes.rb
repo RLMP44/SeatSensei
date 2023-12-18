@@ -19,6 +19,6 @@ Rails.application.routes.draw do
   resources :classrooms, only: [:show, :create, :update, :destroy] do
     # As a user, I can create a seating arrangement for a class in a classroom
     # As a user, I can save a seating arrangement for a class in a classroom
-    resources :arrangements, [:create, :update]
+    resources :arrangements, only: [:create, :update]
   end
 end
