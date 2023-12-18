@@ -8,5 +8,5 @@ class User < ApplicationRecord
   has_many :students, through: :s_classes
   has_many :classrooms
 
-  validates :username, presence: true, length: { min: 2 }
+  validates :username, presence: true, length: { minimum: 2 }
 end
