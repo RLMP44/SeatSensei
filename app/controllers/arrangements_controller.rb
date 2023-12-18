@@ -1,0 +1,2 @@
+class ArrangementsController < ApplicationController
+end
