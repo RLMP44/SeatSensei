@@ -10,8 +10,8 @@
 
 Seat.destroy_all
 Classroom.destroy_all
-SClass.destroy_all
 Student.destroy_all
+SClass.destroy_all
 User.destroy_all
 
 # User
