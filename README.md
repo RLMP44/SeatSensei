@@ -42,6 +42,6 @@ rails s
 
 ## Team Members
 - [Shinji Matsudo](https://github.com/vShinji)
-- [Michael Sam](https://github.com/MarioPaju1991)
+- [Michael Sam](https://github.com/msam4)
 - [Rina Iwamine](https://github.com/herah-s)
 
