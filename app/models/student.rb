@@ -1,5 +1,5 @@
 class Student < ApplicationRecord
-  belongs_to :s_class, dependent: :destroy
+  belongs_to :s_class
   has_one :photo
 
   validates :student_number, presence: true
