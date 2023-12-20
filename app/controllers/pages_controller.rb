@@ -2,7 +2,8 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
-    @classrooms = Classroom.where(user_id: 4)
-    @s_classes = SClass.where(user_id: 4)
+    @user = current_user
+    @classrooms = @user.classrooms
+    @s_classes = @user.s_classes
   end
 end
