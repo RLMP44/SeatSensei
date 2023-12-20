@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: gray;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -9,4 +9,43 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+}
+
+// Navbar links animation
+
+.navbar-link {
+  text-decoration: none;
+}
+
+.navbar-link p {
+  text-decoration: none;
+  color: #FFF;
+  position: relative;
+}
+
+.navbar-link p::before {
+  content: "";
+  background-color: #FFF;
+  width: 100%;
+  height: 2.4px;
+  position: absolute;
+  bottom: -5px;
+  left: 0px;
+  display: none;
+  animation: beforeAnimate .5s;
+}
+
+.navbar-link p:hover::before {
+  display: unset;
+}
+
+@keyframes beforeAnimate {
+  0% {
+    width: 0%;
+    transform: translateX(-50%);
+  }
+  100% {
+    width: 100%;
+    transform: translateX(0%);
+  }
 }
