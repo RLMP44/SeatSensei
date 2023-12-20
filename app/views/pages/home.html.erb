@@ -3,17 +3,19 @@
     <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
     <%# LEFT-SIDE CONTAINER %>
     <div class="container classes-container col-8">
-      <h3>My Classes</h3>
-      <% if @s_classes.any? %>
-        <%# create individual class cards %>
-        <% @s_classes.each do |s_class| %>
-          <div class="s-class-cards m-4">
-            <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
-          </div>
+      <h3 class="justify-content-center">My Classes</h3>
+      <div class="classes-cards-container">
+        <% if @s_classes.any? %>
+          <%# create individual class cards %>
+          <% @s_classes.each do |s_class| %>
+            <div class="s-class-cards">
+              <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No classes uploaded yet!</p>
         <% end %>
-      <% else %>
-        <p>No classes uploaded yet!</p>
-      <% end %>
+      </div>
       <!-- Button trigger modal to add class -->
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropClass">
         New Class
