@@ -1,2 +1,21 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <div class="container d-flex row">
+    <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
+    <div class="container classes-container col-8">
+      <h3>My Classes</h3>
+      <% @s_classes.each do |s_class| %>
+        <div class="s-class-cards m-4">
+          <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
+        </div>
+      <% end %>
+    </div>
+    <div class="container classrooms-container col-3">
+      <h3>My Classrooms</h3>
+      <% @classrooms.each do |classroom| %>
+        <div class="classroom-cards m-4">
+          <p><%= classroom.name %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
