@@ -1,11 +1,14 @@
 .students-list {
-  list-style: none;
-  width: 20%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 
-.students-list li {
+.student-info {
   margin: 4px;
   padding: 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
