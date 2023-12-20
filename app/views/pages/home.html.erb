@@ -1,2 +1,18 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <div class="container d-flex row">
+    <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
+    <div class="classes-container col-9">
+      <h1>My Classes</h1>
+      <%= @s_classes.each do |s_class| %>
+        <%= puts(s_class.year) %>
+        <%= puts("----") %>
+      <% end %>
+    </div>
+    <div class="classrooms-container col-3">
+      <h1>My Classrooms</h1>
+      <%= @classrooms.each do |classroom| %>
+        <%= puts(classroom.name) %>
+      <% end %>
+    </div>
+  </div>
+</div>
