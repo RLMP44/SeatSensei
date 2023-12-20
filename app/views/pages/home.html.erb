@@ -1,19 +1,19 @@
 <div class="container">
   <div class="container d-flex row">
     <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
-    <div class="classes-container col-9">
-      <h1>My Classes</h1>
+    <div class="container classes-container col-8">
+      <h3>My Classes</h3>
       <% @s_classes.each do |s_class| %>
         <div class="s-class-cards m-4">
-          <%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)
+          <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
         </div>
       <% end %>
     </div>
-    <div class="classrooms-container col-3">
-      <h1>My Classrooms</h1>
+    <div class="container classrooms-container col-3">
+      <h3>My Classrooms</h3>
       <% @classrooms.each do |classroom| %>
         <div class="classroom-cards m-4">
-          <%= classroom.name %>
+          <p><%= classroom.name %></p>
         </div>
       <% end %>
     </div>
