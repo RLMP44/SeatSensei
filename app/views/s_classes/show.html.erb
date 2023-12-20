@@ -3,6 +3,7 @@
   <h2>Students</h2>
   <ul class="students-list">
     <% @students.each do |student| %>
+      <%= link_to "Remove", s_class_student_path(student), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
       <li style=<% if student.gender == "Male" %>
         "background-color: lightblue"
         <% elsif student.gender == "Female" %>
@@ -56,6 +57,7 @@
           <%= f.input :kanji_name %>
           <%= f.input :gender, collection: ["Male", "Female", "Other", "Unknown"] %>
           <%= f.input :student_number %>
+          <%#= f.input :photo, as: :file %>
         </div>
         <div class="modal-footer">
           <%= f.submit "Save" %>
