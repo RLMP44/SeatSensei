@@ -3,15 +3,27 @@
   color: black;
   padding: 8px;
   margin: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   width: 20vw;
   justify-content: center;
   flex-wrap: wrap;
+  background-color: #F1DEC9;
+  box-shadow: 2px 2px 6px #8D7B68;
 }
 
 .classroom-cards {
+  display: flex;
   color: black;
-  padding: 5px;
-  border-radius: 6px;
+  padding: 8px;
+  margin: 10px;
+  border-radius: 8px;
   width: 15vw;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #F1DEC9;
+  box-shadow: 2px 2px 6px #8D7B68;
+}
+
+.classroom-cards, .s-class-cards p {
+  margin-bottom: 0px;
 }
