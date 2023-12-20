@@ -1,1 +1,68 @@
-<h1>Classes Show Page</h1>
+<h1>Year <%= @s_class.year %>, Kumi <%= @s_class.kumi %></h1>
+<% if @students.any? %>
+  <h2>Students</h2>
+  <ul class="students-list">
+    <% @students.each do |student| %>
+      <%= link_to "Remove", s_class_student_path(student), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+      <li style=<% if student.gender == "Male" %>
+        "background-color: lightblue"
+        <% elsif student.gender == "Female" %>
+        "background-color: pink"
+        <% elsif student.gender == "Other" %>
+        "background-color: lightgreen"
+        <% elsif student.gender == "Unknown" %>
+        "background-color: lightgray"
+        <% end %>>
+        <!-- Modal -->
+        <div class="modal fade" id="<%= student.id %>staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="<%= student.id %>staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="<%= student.id %>staticBackdropLabel"><%= student.name %></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <%= student.student_number %>
+                <%= student.kanji_name.present? ? student.kanji_name : "" %>
+                <%= student.points %>
+                <%= student.comments.present? ? student.comments : "Add comments!" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#<%= student.id %>staticBackdrop">
+          <%= student.name %>
+        </button>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No students yet!</p>
+<% end %>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  New Student
+</button>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">New Student</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for [@s_class, @student], html: { class: "form-control" } do |f| %>
+          <%= f.input :name %>
+          <%= f.input :kanji_name %>
+          <%= f.input :gender, collection: ["Male", "Female", "Other", "Unknown"] %>
+          <%= f.input :student_number %>
+          <%#= f.input :photo, as: :file %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Save" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
