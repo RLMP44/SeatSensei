@@ -3,15 +3,18 @@
     <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
     <div class="classes-container col-9">
       <h1>My Classes</h1>
-      <%= @s_classes.each do |s_class| %>
-        <%= puts(s_class.year) %>
-        <%= puts("----") %>
+      <% @s_classes.each do |s_class| %>
+        <div class="s-class-cards m-4">
+          <%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)
+        </div>
       <% end %>
     </div>
     <div class="classrooms-container col-3">
       <h1>My Classrooms</h1>
-      <%= @classrooms.each do |classroom| %>
-        <%= puts(classroom.name) %>
+      <% @classrooms.each do |classroom| %>
+        <div class="classroom-cards m-4">
+          <%= classroom.name %>
+        </div>
       <% end %>
     </div>
   </div>
