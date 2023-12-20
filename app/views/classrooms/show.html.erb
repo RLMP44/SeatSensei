@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="container d-flex row">
+    <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
+    <div class="container classes-container col-2">
+      <h3>Students</h3>
+      <% @s_class.students.each do |student| %>
+        <%# determine individual card color depending on student gender %>
+        <% card_color = "" %>
+        <% case student.gender %>
+        <% when "Male" then card_color = "lightblue" %>
+        <% when "Female" then card_color = "lightpink" %>
+        <% when "Other" then card_color = "lightgreen" %>
+        <% when "Unknown" then card_color = "lightgrey" %>
+      <% else card_color = "lightgrey" %>
+      <% end %>
+      <%# create cards %>
+      <div class="s-class-cards m-4" style="background-color: <% card_color%>;">
+        <p>student.name</p>
+      </div>
+    <% end %>
+  </div>
+  <%# display classroom arrangement %>
+  <div class="container classrooms-container col-9">
+    <h3><% @classroom.name %></h3>
+    <p><% @classroom.name %></p>
+  </div>
+</div>
+</div>
