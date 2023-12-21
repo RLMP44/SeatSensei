@@ -1,0 +1,9 @@
+<%= simple_form_for [@s_class, @student], html: { class: "form-control" } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :kanji_name %>
+  <%= f.input :gender, collection: ["Male", "Female", "Other", "Unknown"] %>
+  <%= f.input :student_number %>
+  <%#= commented out because it's not working right now %>
+  <%#= f.input :photo, as: :file %>
+  <%= f.submit "Save" %>
+<% end %>
