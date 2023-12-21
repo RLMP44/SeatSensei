@@ -3,7 +3,6 @@
   <%= f.input :kanji_name %>
   <%= f.input :gender, collection: ["Male", "Female", "Other", "Unknown"] %>
   <%= f.input :student_number %>
-  <%#= commented out because it's not working right now %>
-  <%#= f.input :photo, as: :file %>
+  <%= f.input :photo, as: :file %>
   <%= f.submit "Save" %>
 <% end %>
