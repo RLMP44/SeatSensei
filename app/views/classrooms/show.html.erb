@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container d-flex row">
-    <h1 class="d-flex justify-content-center col-12"><%= @classroom.name %></h1>
+    <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
     <div class="container classes-container col-2">
       <h3>Students</h3>
       <% @s_class.students.each do |student| %>
@@ -15,7 +15,7 @@
       <% end %>
       <%# create cards %>
       <div class="s-class-cards m-4" style="background-color: <% card_color%>;">
-        <p><%= student.name %></p>
+        <p>student.name</p>
       </div>
     <% end %>
   </div>
