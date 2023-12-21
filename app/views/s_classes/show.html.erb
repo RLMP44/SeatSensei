@@ -57,7 +57,7 @@
           <%= f.input :kanji_name %>
           <%= f.input :gender, collection: ["Male", "Female", "Other", "Unknown"] %>
           <%= f.input :student_number %>
-          <%#= f.input :photo, as: :file %>
+          <%= f.input :photo, as: :file %>
         </div>
         <div class="modal-footer">
           <%= f.submit "Save" %>
