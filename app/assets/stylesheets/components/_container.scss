@@ -9,3 +9,17 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.classes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.classrooms-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
