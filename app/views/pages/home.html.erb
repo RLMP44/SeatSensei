@@ -27,7 +27,7 @@
       <% if @classrooms.any? %>
         <%# create individual classroom cards %>
         <% @classrooms.each do |classroom| %>
-          <div class="classroom-cards m-4">
+          <div class="classroom-cards">
             <p><%= classroom.name %></p>
           </div>
         <% end %>
