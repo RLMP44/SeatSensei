@@ -1,26 +1,30 @@
-<div class="container">
-  <div class="container d-flex row">
-    <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
-    <%# left-side container %>
-    <div class="container classes-container col-8">
-      <h3>My Classes</h3>
-      <%# create individual class cards %>
-      <% @s_classes.each do |s_class| %>
-        <div class="s-class-cards m-4">
-          <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
-        </div>
-      <% end %>
-    </div>
-    <%# right-side container %>
-    <div class="container classrooms-container col-3">
-      <h3>My Classrooms</h3>
-      <%# create individual classroom cards %>
-      <% @classrooms.each do |classroom| %>
-        <div class="classroom-cards m-4">
-          <p><%= classroom.name %></p>
-        </div>
-      <% end %>
+<% if user_signed_in? %>
+  <div class="container">
+    <div class="container d-flex row">
+      <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
+      <%# left-side container %>
+      <div class="container classes-container col-8">
+        <h3>My Classes</h3>
+        <%# create individual class cards %>
+        <% @s_classes.each do |s_class| %>
+          <div class="s-class-cards m-4">
+            <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
+          </div>
+        <% end %>
+      </div>
+      <%# right-side container %>
+      <div class="container classrooms-container col-3">
+        <h3>My Classrooms</h3>
+        <%# create individual classroom cards %>
+        <% @classrooms.each do |classroom| %>
+          <div class="classroom-cards m-4">
+            <p><%= classroom.name %></p>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% else %>
+  <%= render "shared/landing_page" %>
+<% end %>
 <%# Need to call an if statment to display log in and else(the landing page) %>
