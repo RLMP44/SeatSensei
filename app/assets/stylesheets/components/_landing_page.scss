@@ -1,0 +1,30 @@
+.landing {
+  padding: 150px 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.landing-left {
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin: 10px;
+  }
+
+  h3 {
+    margin: 30px 40px;
+    text-align: justify;
+  }
+
+  .btn {
+    p {
+      margin: 5px;
+    }
+  }
+}
+
+.landing-img {
+  background-size: cover;
+}
