@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid row">
     <%= link_to "/", class: "navbar-brand col-4" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+      <h2 style="color:#222222">Seat Sensei <i style="color:#222222" class="fa-solid fa-graduation-cap"></i></h2>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
           <p>Home</p>
         <% end %>
         <%= link_to "#", class:"mx-4 mt-3 navbar-link" do %>
-          <p>Messages</p>
+          <p>Change this later</p>
         <% end %>
         <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class:"mx-4 mt-3 navbar-link" do %>
           <p>Log out</p>
