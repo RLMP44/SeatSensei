@@ -63,6 +63,22 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # incliding devise helpers (sign_in, sign_out)
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :system
+
   # enable factory bot gem
   config.include FactoryBot::Syntax::Methods
+  # added to resolve this error
+  # Selenium::WebDriver::Error::UnknownError:unknown error: cannot find Chrome binary
+  config.before(:each) do |example|
+    if example.metadata[:type] == :system
+      if example.metadata[:js]
+        driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+      else
+        driven_by :rack_test
+      end
+    end
+  end
 end

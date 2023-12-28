@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User Login' do
+RSpec.describe 'User Login', type: :system do
   let(:michael) { create :user }
 
   it 'allows a user to log in' do
