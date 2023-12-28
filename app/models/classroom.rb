@@ -1,5 +1,6 @@
 class Classroom < ApplicationRecord
   belongs_to :user
+  has_many :arrangements
 
   validates :name, presence: true, uniqueness: true
   validates :total_rows, presence: true, numericality: { only_integer: true }

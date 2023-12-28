@@ -4,6 +4,7 @@ class SClassesController < ApplicationController
   def show
     @students = Student.where(s_class: @s_class)
     @student = Student.new
+    @classrooms = Classroom.where(user: current_user)
   end
 
   def create

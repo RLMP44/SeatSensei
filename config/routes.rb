@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :students, only: [:create, :update, :destroy]
   end
 
+  post "redirect_to_classroom", to: "s_classes#redirect_to_classroom"
+
   # As a user, I can create a classroom
   resources :classrooms, only: [:show, :create, :update, :destroy] do
     resources :seats, only: [:create, :update]
