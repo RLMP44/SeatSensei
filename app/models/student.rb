@@ -1,6 +1,6 @@
 class Student < ApplicationRecord
   belongs_to :s_class
-  has_one :photo
+  has_one_attached :photo
 
   validates :student_number, presence: true
   validates :gender, presence: true, inclusion: { in: ["Male", "Female", "Other", "Unknown"] }

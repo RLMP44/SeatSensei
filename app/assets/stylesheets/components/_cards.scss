@@ -1,3 +1,4 @@
+// on dashboard
 .s-class-cards {
   display: flex;
   color: black;
@@ -24,6 +25,11 @@
   box-shadow: 2px 2px 6px #8D7B68;
 }
 
-.classroom-cards, .s-class-cards p {
+.classroom-cards p, .s-class-cards p {
   margin-bottom: 0px;
+}
+
+// on classroom show page
+.show {
+  width: 90%;
 }

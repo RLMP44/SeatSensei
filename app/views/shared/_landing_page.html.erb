@@ -1,0 +1,15 @@
+ <%# Landing Page Here %>
+<div class="landing d-flex row">
+  <%# left-side container  %>
+  <div class="landing-left col-6">
+    <div>
+      <h1>Seat Sensei <i class="fa-solid fa-graduation-cap"></i></h1>
+      <h3>Seating made simple - Seat Sensei, the master of organized seating</h3>
+      <%= link_to new_user_session_path, class:"button-home buttonhome" do %>
+        <p class="pt-2">Get Started <i class="fa-solid fa-arrow-right"></i></p>
+      <% end %>
+    </div>
+  </div>
+  <%# right-side container %>
+  <div class="landing-img col-6" style="background-image: url(<%= image_path "classroom_landing.jpg" %>);"></div>
+</div>

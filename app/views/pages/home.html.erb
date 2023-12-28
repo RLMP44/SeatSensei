@@ -1,88 +1,93 @@
-<div class="container">
-  <div class="container d-flex row">
-    <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
-    <%# LEFT-SIDE CONTAINER %>
-    <div class="container classes-container col-8">
-      <h3 class="justify-content-center">My Classes</h3>
-      <div class="classes-cards-container">
-        <% if @s_classes.any? %>
-          <%# create individual class cards %>
-          <% @s_classes.each do |s_class| %>
-            <div class="s-class-cards">
-              <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
+<% if user_signed_in? %>
+  <div class="container">
+    <div class="container d-flex row">
+      <h1 class="d-flex justify-content-center col-12">Dashboard</h1>
+      <%# LEFT-SIDE CONTAINER %>
+      <div class="container classes-container col-8">
+        <h3 class="justify-content-center">My Classes</h3>
+        <div class="classes-cards-container">
+          <% if @s_classes.any? %>
+            <%# create individual class cards %>
+            <% @s_classes.each do |s_class| %>
+              <div class="s-class-cards">
+                <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
+              </div>
+            <% end %>
+          <% else %>
+            <p>No classes uploaded yet!</p>
+          <% end %>
+        </div>
+        <!-- Button trigger modal to add class -->
+        <button type="button" class="btn btn-primary" style="background-color: #8D7B68; border: none; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#staticBackdropClass">
+          New Class
+        </button>
+      </div>
+      <%# RIGHT-SIDE CONTAINER %>
+      <div class="container classrooms-container col-3">
+        <h3>My Classrooms</h3>
+        <% if @classrooms.any? %>
+          <%# create individual classroom cards %>
+          <% @classrooms.each do |classroom| %>
+            <div class="classroom-cards">
+              <p><%= classroom.name %></p>
             </div>
           <% end %>
         <% else %>
-          <p>No classes uploaded yet!</p>
+          <p>No classrooms yet!</p>
         <% end %>
+        <!-- Button trigger modal to add classroom -->
+        <button type="button" class="btn btn-primary" style="background-color: #8D7B68; border: none; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#staticBackdropClassroom">
+          New Classroom
+        </button>
       </div>
-      <!-- Button trigger modal to add class -->
-      <button type="button" class="btn btn-primary" style="background-color: #8D7B68; border: none; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#staticBackdropClass">
-        New Class
-      </button>
     </div>
-    <%# RIGHT-SIDE CONTAINER %>
-    <div class="container classrooms-container col-3">
-      <h3>My Classrooms</h3>
-      <% if @classrooms.any? %>
-        <%# create individual classroom cards %>
-        <% @classrooms.each do |classroom| %>
-          <div class="classroom-cards m-4">
-            <p><%= classroom.name %></p>
+  </div>
+  <%# MODALS LIST %>
+  <!-- Modal to add class -->
+  <div class="modal fade" id="staticBackdropClass" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">New Class</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= simple_form_for [@s_class], html: { class: "form-control" } do |f| %>
+            <%= f.input :year %>
+            <%= f.input :kumi %>
+            <%= f.input :subject %>
+            <%= f.input :schedule %>
           </div>
-        <% end %>
-      <% else %>
-        <p>No classrooms yet!</p>
-      <% end %>
-      <!-- Button trigger modal to add classroom -->
-      <button type="button" class="btn btn-primary" style="background-color: #8D7B68; border: none; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#staticBackdropClassroom">
-        New Classroom
-      </button>
-    </div>
-  </div>
-</div>
-<%# MODALS LIST %>
-<!-- Modal to add class -->
-<div class="modal fade" id="staticBackdropClass" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">New Class</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for [@s_class], html: { class: "form-control" } do |f| %>
-          <%= f.input :year %>
-          <%= f.input :kumi %>
-          <%= f.input :subject %>
-          <%= f.input :schedule %>
+          <div class="modal-footer">
+            <%= f.submit "Save" %>
+          <% end %>
         </div>
-        <div class="modal-footer">
-          <%= f.submit "Save" %>
-        <% end %>
       </div>
     </div>
   </div>
-</div>
-<!-- Modal to add classroom -->
-<div class="modal fade" id="staticBackdropClassroom" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">New Class</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for [@classroom], html: { class: "form-control" } do |f| %>
-          <%= f.input :name %>
-          <%= f.input :total_rows %>
-          <%= f.input :total_columns %>
-          <%= f.input :max_seats %>
+  <!-- Modal to add classroom -->
+  <div class="modal fade" id="staticBackdropClassroom" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">New Class</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-footer">
-          <%= f.submit "Save" %>
-        <% end %>
+        <div class="modal-body">
+          <%= simple_form_for [@classroom], html: { class: "form-control" } do |f| %>
+            <%= f.input :name %>
+            <%= f.input :total_rows %>
+            <%= f.input :total_columns %>
+            <%= f.input :max_seats %>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit "Save" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% else %>
+  <%= render "shared/landing_page" %>
+<% end %>
+<%# Need to call an if statment to display log in and else(the landing page) %>

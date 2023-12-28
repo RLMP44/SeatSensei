@@ -3,6 +3,10 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
   New Student
 </button>
+<%= form_with model: @classrooms, method: :post, url: redirect_to_classroom_path(s_class_id: @s_class.id) do |f| %>
+  <%= f.collection_select :classroom_id, @classrooms, :id, :name, prompt: 'Choose Classroom', classroom_id: :classroom_id  %>
+  <%= f.submit "Assign Classroom", class: "btn btn-secondary" %>
+<% end %>
 <% if @students.any? %>
   <h2>Students</h2>
   <div class="students-list col-8">

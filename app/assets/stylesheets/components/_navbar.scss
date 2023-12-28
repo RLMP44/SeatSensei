@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: gray;
+  background: #fff8f0;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -19,13 +19,13 @@
 
 .navbar-link p {
   text-decoration: none;
-  color: #FFF;
+  color: #222222;
   position: relative;
 }
 
 .navbar-link p::before {
   content: "";
-  background-color: #FFF;
+  background-color: #222222;
   width: 100%;
   height: 2.4px;
   position: absolute;

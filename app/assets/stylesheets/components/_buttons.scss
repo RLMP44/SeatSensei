@@ -1,0 +1,42 @@
+.button-home {
+  padding: 3px 25px;
+  background: transparent;
+  outline: none !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.buttonhome {
+  border: 2px solid #FFC65A;
+  z-index: 1;
+  color: rgb(37, 37, 37);
+}
+
+.buttonhome:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  background: #FFC65A;
+  transition: all 0.3s ease;
+}
+
+.buttonhome:hover {
+  color: rgb(0, 0, 0);
+}
+
+.buttonhome:hover:after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.buttonhome:active {
+  top: 2px;
+}
