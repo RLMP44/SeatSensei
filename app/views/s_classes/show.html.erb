@@ -1,4 +1,5 @@
 <h1>Year <%= @s_class.year %>, Kumi <%= @s_class.kumi %></h1>
+<%= link_to "Delete Class", s_class_path(@s_class), class: "btn btn-warning", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
   New Student

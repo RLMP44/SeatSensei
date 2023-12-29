@@ -10,7 +10,7 @@
             <%# create individual class cards %>
             <% @s_classes.each do |s_class| %>
               <div class="s-class-cards">
-                <p><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</p>
+                <a href="<%= s_class_path(s_class) %>"><%= s_class.year %><%= s_class.kumi %> - <%= s_class.subject %> (<em><%= s_class.schedule %></em>)</a>
               </div>
             <% end %>
           <% else %>
@@ -29,7 +29,12 @@
           <%# create individual classroom cards %>
           <% @classrooms.each do |classroom| %>
             <div class="classroom-cards">
-              <p><%= classroom.name %></p>
+              <span><%= classroom.name %></span>
+              <span>
+                <%= link_to classroom_path(classroom), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+                  <i class="fa-solid fa-trash-can"></i>
+                <% end %>
+              </span>
             </div>
           <% end %>
         <% else %>
@@ -48,18 +53,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">New Class</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a new class</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <%= simple_form_for [@s_class], html: { class: "form-control" } do |f| %>
+          <%= simple_form_for @s_class, html: { class: "form-control" } do |f| %>
             <%= f.input :year %>
             <%= f.input :kumi %>
             <%= f.input :subject %>
             <%= f.input :schedule %>
           </div>
           <div class="modal-footer">
-            <%= f.submit "Save" %>
+            <%= f.submit "Save Class" %>
           <% end %>
         </div>
       </div>
@@ -70,18 +75,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">New Class</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a new classroom</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <%= simple_form_for [@classroom], html: { class: "form-control" } do |f| %>
+          <%= simple_form_for @classroom, html: { class: "form-control" } do |f| %>
             <%= f.input :name %>
             <%= f.input :total_rows %>
             <%= f.input :total_columns %>
             <%= f.input :max_seats %>
           </div>
           <div class="modal-footer">
-            <%= f.submit "Save" %>
+            <%= f.submit "Save Classroom" %>
           <% end %>
         </div>
       </div>
