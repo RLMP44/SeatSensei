@@ -16,4 +16,9 @@ RSpec.describe Classroom, type: :model do
     new_classroom = build(:classroom, total_columns: "B")
     expect(new_classroom.save).to eq(false)
   end
+
+  it "creates a classroom with correct parameters" do
+    classroom = build(:classroom)
+    expect(classroom.save).to eq(true)
+  end
 end
