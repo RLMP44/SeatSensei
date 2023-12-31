@@ -4,17 +4,18 @@ export default class extends Controller {
 }
 
 var canvas = document.querySelector("canvas");
+var container = document.querySelector("classrooms-container");
 
 // get "context" for access to all functions
 var ctx = canvas.getContext("2d");
-ctx.transform(.1, 0, 0, .3, 0, 0)
+ctx.transform(.5, 0, 0, .5, 0, 0)
 
-
+console.log(canvas.width);
 var max_seats = 25;
 var columns = 3;
 var rows = 5;
-var working_width = window.innerWidth / (columns * 2 + 1);
-var working_height = window.innerHeight / (rows * 2 + 1);
+var working_width = canvas.width / (columns * 2 + 1);
+var working_height = canvas.height / (rows * 2 + 1);
 var x_coor = working_width;
 var y_coor = working_height;
 
