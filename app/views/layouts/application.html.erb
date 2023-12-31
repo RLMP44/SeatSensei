@@ -7,6 +7,17 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <style type="text/css">
+      canvas {
+        background-color: white;
+        height: -webkit-fill-available;
+        width: -webkit-fill-available;
+      }
+      /* get rid of default margin */
+      body {
+        margin: 0;
+      }
+    </style>
   </head>
   <body><%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
