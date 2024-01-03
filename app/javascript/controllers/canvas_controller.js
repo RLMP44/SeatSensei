@@ -3,6 +3,15 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 }
 
+import classroomController from "./controllers/classroom_controller"
+application.register("classroom", classroomController)
+import classroomEditorController from "./controllers/classroom_editor_controller"
+application.register("classroomEditor", classroomEditorController)
+import deskController from "./controllers/desk_controller"
+application.register("desk", deskController)
+import viewportController from "./controllers/viewport_controller"
+application.register("viewport", viewportController)
+
 var canvas = document.querySelector("canvas");
 var container = document.querySelector("classrooms-container");
 
