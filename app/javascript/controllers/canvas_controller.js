@@ -45,7 +45,7 @@ function generateColumn(columns, x_coor, y_coor, working_width, working_height) 
   for (var c = 0; c < columns; c++) {
     console.log("generating column");
     ctx.fillStyle = "black";
-    ctx.fillRect(x_coor, y_coor, working_width, working_height);
+    new Desk(x_coor, y_coor, working_width, working_height);
     y_coor += working_height * 2;
   }
 }

@@ -22,4 +22,16 @@ class Classroom {
     }
     return false;
   }
+
+  // clear the canvas
+  dispose() {
+    this.desks.length = 0;
+  }
+
+  // draw all desks in classroom
+  draw(ctx) {
+    for (const desk of this.desks) {
+      desk.draw(ctx);
+    }
+  }
 }
