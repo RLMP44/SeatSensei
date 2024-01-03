@@ -50,8 +50,8 @@ function generateColumn(columns, x_coor, y_coor, working_width, working_height) 
   }
 }
 
-// generateDesks();
-webkitRequestAnimationFrame(generateDesks);
+generateDesks(canvas);
+// webkitRequestAnimationFrame(generateDesks);
 
 // ----------------- old code ----------------------- //
 // function generateDesks() {
