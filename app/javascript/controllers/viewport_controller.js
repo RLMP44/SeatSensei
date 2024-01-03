@@ -1,3 +1,7 @@
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+}
 class Viewport {
   constructor(canvas) {
     this.canvas = canvas;

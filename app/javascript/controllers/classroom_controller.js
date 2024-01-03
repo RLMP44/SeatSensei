@@ -1,5 +1,10 @@
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+}
+
 class Classroom {
-  constructor(points = []) {
+  constructor(desks = []) {
     this.desks = desks;
   }
 

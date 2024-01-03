@@ -1,3 +1,8 @@
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+}
+
 class Desk {
   constructor(x, y, width, height) {
     this.x = x;

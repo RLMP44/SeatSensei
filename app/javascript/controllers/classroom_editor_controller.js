@@ -1,3 +1,8 @@
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+}
+
 class classroomEditor {
   constructor(viewport, classroom) {
     this.viewport = viewport;
