@@ -1,38 +1,30 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  connect() {
+    console.log("hello from canvas controller");
+
+    // start JavaScript canvas here
+    const canvas = this.element
+    canvas.width = 600;
+    canvas.height = 600;
+
+    const ctx = canvas.getContext("2d");
+
+    const classroomString = localStorage.getItem("classroom");
+    // check if a classroom file already exists, if so parse
+    const classroomInfo = classroomString ? JSON.parse(classroomString) : null;
+    // make classroom with existing info if exists, or an empty classroom if not
+    const classroom = classroomInfo
+      ? classroom.load(classroomInfo)
+      : new classroom();
+    const viewport = new Viewport(canvas);
+    // initialize with the viewport so it knows level of zoom
+    const classroomEditor = new classroomEditor(viewport, classroom);
+
+    animate();
+  }
 }
-
-import classroomController from "./controllers/classroom_controller"
-application.register("classroom", classroomController)
-import classroomEditorController from "./controllers/classroom_editor_controller"
-application.register("classroomEditor", classroomEditorController)
-import deskController from "./controllers/desk_controller"
-application.register("desk", deskController)
-import viewportController from "./controllers/viewport_controller"
-application.register("viewport", viewportController)
-
-var canvas = document.querySelector("canvas");
-var container = document.querySelector("classrooms-container");
-
-// start JavaScript canvas here
-canvas.width = 600;
-canvas.height = 600;
-
-const ctx = canvas.getContext("2d");
-
-const classroomString = localStorage.getItem("classroom");
-// check if a classroom file already exists, if so parse
-const classroomInfo = classroomString ? JSON.parse(classroomString) : null;
-// make classroom with existing info if exists, or an empty classroom if not
-const classroom = classroomInfo
-  ? classroom.load(classroomInfo)
-  : new classroom();
-const viewport = new Viewport(canvas);
-// initialize with the viewport so it knows level of zoom
-const classroomEditor = new classroomEditor(viewport, classroom);
-
-animate();
 
 function animate() {
   viewport.reset();
@@ -51,6 +43,8 @@ function save() {
   // can check to see if it's been saved by going to the console
   // and typing in "localStorage.getItem('classroom')"
 }
+
+// ---------------- mostly functional code -------------------- //
 
 // // get "context" for access to all functions
 // var ctx = canvas.getContext("2d");
