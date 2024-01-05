@@ -22,6 +22,10 @@ class Classroom {
     return this.desks.find((d) => d.equals(desk));
   }
 
+  equals(desk) {
+    return this.x == desk.x && this.y == desk.y;
+  }
+
   // add a new desk only if it doesn't already exist
   tryAddDesk(desk) {
     if (!this.containsDesk(desk)) {

@@ -80,6 +80,19 @@ class classroomEditor {
     }
   }
 
+  getNearestDesk(loc, desks, threshold = Number.MAX_SAFE_INTEGER) {
+    let minDist = Number.MAX_SAFE_INTEGER;
+    let nearest = null;
+    for (const desk of desks) {
+      const dist = distance(desk, loc);
+      if (dist < minDist && dist < threshold) {
+        minDist = dist;
+        nearest = desk;
+      }
+    }
+    return nearest;
+  }
+
   dispose() {
     this.classroom.dispose();
     this.selected = null;
