@@ -23,18 +23,18 @@ export default class extends Controller {
     // initialize with the viewport so it knows level of zoom
     const classroomEditor = new ClassroomEditor(viewport, classroom);
 
-    animate();
+    animate(classroomEditor, viewport);
   }
 }
 
-function animate() {
-  Viewport.reset();
-  ClassroomEditor.display();
+function animate(classroomEditor, viewport) {
+  viewport.reset();
+  classroomEditor.display();
   requestAnimationFrame(animate);
 }
 
 function dispose() {
-  ClassroomEditor.dispose();
+  classroomEditor.dispose();
 }
 
 function save() {
