@@ -4,10 +4,9 @@ export default class extends Controller {
   connect() {
     console.log("hello from classroom controller")
   }
-}
 
-class Classroom {
   constructor(desks = []) {
+    super();
     this.desks = desks;
   }
 
@@ -47,5 +46,3 @@ class Classroom {
     }
   }
 }
-
-export { Classroom };

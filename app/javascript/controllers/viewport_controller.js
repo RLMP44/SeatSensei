@@ -1,14 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 import { Desk } from "./desk_controller.js"
-// need to import Desk class
 
 export default class extends Controller {
   connect() {
     console.log("hello from viewport controller")
   }
-}
 
-class Viewport {
   constructor(canvas) {
     this.canvas = canvas;
     // get context via the canvas once more
@@ -17,7 +14,7 @@ class Viewport {
     // set to default
     this.zoom = 1;
     this.center = new Desk(canvas.width / 2, canvas.height / 2, 150, 100);
-    this.offset = this.#scale(this.center, -1);
+    this.offset = scale(this.center, -1);
 
     this.drag = {
       // may have to change height and width to working-height and width here
@@ -31,7 +28,7 @@ class Viewport {
     this.#addEventListeners();
   }
 
-  #scale(desk, scaler) {
+  scale(desk, scaler) {
     return new Desk(desk.x * scaler, desk.y * scaler);
   }
 
@@ -105,5 +102,3 @@ class Viewport {
     this.drag.active = true;
   }
 }
-
-export { Viewport };
