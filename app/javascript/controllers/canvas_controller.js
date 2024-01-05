@@ -6,8 +6,6 @@ export default class extends Controller {
 
     // start JavaScript canvas here
     const canvas = this.element
-    canvas.width = 600;
-    canvas.height = 600;
 
     const ctx = canvas.getContext("2d");
 
