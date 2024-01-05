@@ -6,7 +6,7 @@ export default class extends Controller {
   }
 }
 
-class classroomEditor {
+class ClassroomEditor {
   constructor(viewport, classroom) {
     this.viewport = viewport;
     this.canvas = viewport.canvas;
@@ -107,3 +107,5 @@ class classroomEditor {
     }
   }
 }
+
+export { ClassroomEditor };

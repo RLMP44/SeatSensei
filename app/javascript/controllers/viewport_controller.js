@@ -17,7 +17,7 @@ class Viewport {
     // set to default
     this.zoom = 1;
     this.center = new Desk(canvas.width / 2, canvas.height / 2, 150, 100);
-    this.offset = scale(this.center, -1);
+    this.offset = this.#scale(this.center, -1);
 
     this.drag = {
       // may have to change height and width to working-height and width here
@@ -31,7 +31,7 @@ class Viewport {
     this.#addEventListeners();
   }
 
-  scale(desk, scaler) {
+  #scale(desk, scaler) {
     return new Desk(desk.x * scaler, desk.y * scaler);
   }
 
