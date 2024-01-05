@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { Viewport } from "./viewport_controller.js"
 import { Classroom } from "./classroom_controller.js"
+import { ClassroomEditor } from "./classroom_editor_controller.js"
 
 export default class extends Controller {
   connect() {
@@ -20,20 +21,20 @@ export default class extends Controller {
       : new Classroom();
     const viewport = new Viewport(canvas);
     // initialize with the viewport so it knows level of zoom
-    const classroomEditor = new classroomEditor(viewport, classroom);
+    const classroomEditor = new ClassroomEditor(viewport, classroom);
 
     animate();
   }
 }
 
 function animate() {
-  viewport.reset();
-  classroomEditor.display();
+  Viewport.reset();
+  ClassroomEditor.display();
   requestAnimationFrame(animate);
 }
 
 function dispose() {
-  classroomEditor.dispose();
+  ClassroomEditor.dispose();
 }
 
 function save() {
