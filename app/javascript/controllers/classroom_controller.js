@@ -47,3 +47,5 @@ class Classroom {
     }
   }
 }
+
+export { Classroom };

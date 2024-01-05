@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-
-// need to import Viewport and Classroom classes
+import { Viewport } from "./viewport_controller.js"
+import { Classroom } from "./classroom_controller.js"
 
 export default class extends Controller {
   connect() {

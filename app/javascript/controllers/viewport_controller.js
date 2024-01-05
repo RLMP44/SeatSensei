@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-
+import { Desk } from "./desk_controller.js"
 // need to import Desk class
 
 export default class extends Controller {
@@ -31,7 +31,6 @@ class Viewport {
     this.#addEventListeners();
   }
 
-  // doesn't recognize Desk here?
   scale(desk, scaler) {
     return new Desk(desk.x * scaler, desk.y * scaler);
   }
@@ -106,3 +105,5 @@ class Viewport {
     this.drag.active = true;
   }
 }
+
+export { Viewport };
