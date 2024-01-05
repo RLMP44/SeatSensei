@@ -33,11 +33,11 @@ function animate(classroomEditor, viewport) {
   requestAnimationFrame(animate);
 }
 
-function dispose() {
+function dispose(classroomEditor) {
   classroomEditor.dispose();
 }
 
-function save() {
+function save(classroom) {
   // save to local storage, but must be JSON file
   // local storage only works with strings
   localStorage.setItem("classroom", JSON.stringify(classroom));

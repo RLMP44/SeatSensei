@@ -23,8 +23,8 @@
   <div class="container classrooms-container col-9">
     <h3><% @classroom.name %></h3>
     <div id="controls">
-      <button onclick="dispose()">🗑️</button>
-      <button onclick="save()">💾</button>
+      <button data-action="click->canvas#dispose">🗑️</button>
+      <button data-action="click->canvas#save">💾</button>
     </div>
     <h6 class="my-1">Back</h6>
     <canvas data-controller="canvas classroom classroom-editor desk viewport"></canvas>

@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 import { Desk } from "./desk_controller.js"
-// need to import Desk class
 
 export default class extends Controller {
   connect() {
