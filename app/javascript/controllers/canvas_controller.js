@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
+// need to import Viewport and Classroom classes
+
 export default class extends Controller {
   connect() {
     console.log("hello from canvas controller");
@@ -15,7 +17,7 @@ export default class extends Controller {
     // make classroom with existing info if exists, or an empty classroom if not
     const classroom = classroomInfo
       ? classroom.load(classroomInfo)
-      : new classroom();
+      : new Classroom();
     const viewport = new Viewport(canvas);
     // initialize with the viewport so it knows level of zoom
     const classroomEditor = new classroomEditor(viewport, classroom);
