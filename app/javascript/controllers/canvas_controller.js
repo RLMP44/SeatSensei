@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
-    console.log("hi");
+    console.log("hello from canvas controller");
     // start JavaScript canvas here
     const canvas = this.element
     canvas.width = 600;
