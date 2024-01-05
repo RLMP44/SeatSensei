@@ -1,4 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
+import { Desk } from "./desk_controller.js"
+// need to import Desk class
 
 export default class extends Controller {
   connect() {
@@ -29,6 +31,10 @@ class Viewport {
     this.#addEventListeners();
   }
 
+  scale(desk, scaler) {
+    return new Desk(desk.x * scaler, desk.y * scaler);
+  }
+
   reset() {
     this.ctx.restore();
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -41,22 +47,30 @@ class Viewport {
   }
 
   // mouse needs context to know what level of zoom it is
-  // so it can place points accurately
+  // so it can place desks accurately
   // called in the graphEditor
   getTouchObject(evt, subtractDragOffset = false) {
     const desk = new Desk(
       // subtract center from offset to ensure starting position is correct
-      // subtract this.offset.y or x from zoom to ensure points come in at correct spot
+      // subtract this.offset.y or x from zoom to ensure desks come in at correct spot
       (evt.offsetX - this.center.x) * this.zoom - this.offset.x,
       (evt.offsetY - this.center.y) * this.zoom - this.offset.y
     );
     // subtract drag offset to make sure segment attaches to mouse
     // during drag motions
-    return subtractDragOffset ? subtract(point, this.drag.offset) : point;
+    return subtractDragOffset ? subtract(desk, this.drag.offset) : desk;
   }
 
   getOffset () {
     return add(this.offset, this.drag.offset);
+  }
+
+  add(desk1, desk2) {
+    return new Desk(desk1.x + desk2.x, desk1.y + desk2.y);
+  }
+
+  subtract(desk1, desk2) {
+    return new Desk(desk1.x - desk2.x, desk1.y - desk2.y);
   }
 
   #addEventListeners() {
@@ -91,3 +105,5 @@ class Viewport {
     this.drag.active = true;
   }
 }
+
+export { Viewport };
