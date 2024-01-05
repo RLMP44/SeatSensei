@@ -25,25 +25,27 @@ export default class extends Controller {
 
     animate(classroomEditor, viewport);
   }
+
+  animate(classroomEditor, viewport) {
+    viewport.reset();
+    classroomEditor.display();
+    requestAnimationFrame(animate);
+  }
+
+  dispose(classroomEditor) {
+    classroomEditor.dispose();
+  }
+
+  save(classroom) {
+    // save to local storage, but must be JSON file
+    // local storage only works with strings
+    localStorage.setItem("classroom", JSON.stringify(classroom));
+    // can check to see if it's been saved by going to the console
+    // and typing in "localStorage.getItem('classroom')"
+  }
 }
 
-function animate(classroomEditor, viewport) {
-  viewport.reset();
-  classroomEditor.display();
-  requestAnimationFrame(animate);
-}
 
-function dispose(classroomEditor) {
-  classroomEditor.dispose();
-}
-
-function save(classroom) {
-  // save to local storage, but must be JSON file
-  // local storage only works with strings
-  localStorage.setItem("classroom", JSON.stringify(classroom));
-  // can check to see if it's been saved by going to the console
-  // and typing in "localStorage.getItem('classroom')"
-}
 
 // ---------------- mostly functional code -------------------- //
 

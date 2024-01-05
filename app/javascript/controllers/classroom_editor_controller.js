@@ -4,10 +4,9 @@ export default class extends Controller {
   connect() {
     console.log("hello from classroom editor controller")
   }
-}
 
-class ClassroomEditor {
   constructor(viewport, classroom) {
+    super();
     this.viewport = viewport;
     this.canvas = viewport.canvas;
     this.classroom = classroom;
@@ -50,13 +49,11 @@ class ClassroomEditor {
     // add desk where touchObject initiated
     this.classroom.addDesk(this.touchObject);
     // add segment -------- needed?
-    this.#select(this.touchObject);
-    this.touched = this.touchObject;
+    // this.#select(this.touchObject);
+    // this.touched = this.touchObject;
   }
 
   #handleTouchMove(evt) {
-    // get touchObject location
-    // this.touchObject = new Desk(evt.offsetX, evt.offsetY);
     // get touchObject location from the viewport
     this.touchObject = this.viewport.getTouchObject(evt, true);
     // check to see if the current touchObject desk is near an existing desk (threshold of 10)
@@ -107,5 +104,3 @@ class ClassroomEditor {
     }
   }
 }
-
-export { ClassroomEditor };

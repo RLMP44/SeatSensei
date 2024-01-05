@@ -4,10 +4,9 @@ export default class extends Controller {
   connect() {
     console.log("hello from desk controller")
   }
-}
 
-class Desk {
   constructor(x, y, width, height) {
+    super();
     this.x = x;
     this.y = y;
     this.width = width;
@@ -19,7 +18,6 @@ class Desk {
   draw(ctx, { size = 18, color = "black", outline = false, fill = false } = {} ) {
     ctx.beginPath();
     ctx.fillStyle = color;
-    // must use radians, hence the Math.PI
     ctx.rect(this.x, this.y, this.width, this.height);
     ctx.fill();
     if (outline) {
@@ -39,5 +37,3 @@ class Desk {
     }
   }
 }
-
-export { Desk };
