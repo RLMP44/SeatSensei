@@ -19,7 +19,7 @@ class Classroom {
   // checks to see if a desk already exists so we don't have 2 in the same spot
   // will return something (true) or nothing (false)
   containsDesk(desk) {
-    return this.desks.find((p) => p.equals(desk));
+    return this.desks.find((d) => d.equals(desk));
   }
 
   // add a new desk only if it doesn't already exist
