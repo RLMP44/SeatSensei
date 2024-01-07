@@ -10,9 +10,10 @@
 <% end %>
 <% if @students.any? %>
   <h2>Students</h2>
-  <div class="students-list col-8">
-    <% @students.each do |student| %>
-      <div class="student-info" style="<% if student.gender == "Male" %>
+  <div class="students-list col-12">
+    <div class="student-names col-4">
+      <% @students.each do |student| %>
+        <div class="student-name" style="<% if student.gender == "Male" %>
           background-color: lightblue
         <% elsif student.gender == "Female" %>
           background-color: pink
@@ -21,14 +22,18 @@
         <% elsif student.gender == "Unknown" %>
           background-color: lightgray
         <% end %>">
-        <div><%= student.name %></div>
-        <div><%= student.student_number %></div>
-        <div><%= student.kanji_name.present? ? student.kanji_name : "" %></div>
-        <div><%= student.points %></div>
-        <div><%= student.comments.present? ? student.comments : "Add comments!" %></div>
-        <%= link_to "Remove", s_class_student_path(student), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
-      </div>
-    <% end %>
+          <div><%= student.name %></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="student-info col-6">
+      <div><%= @students.first.name %></div>
+      <div><%= @students.first.student_number %></div>
+      <div><%= @students.first.kanji_name.present? ? @students.first.kanji_name : "" %></div>
+      <div><%= @students.first.points %></div>
+      <div><%= @students.first.comments.present? ? @students.first.comments : "Add comments!" %></div>
+      <%= link_to "Remove", s_class_student_path(@students.first), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+    </div>
   </div>
 <% else %>
   <p>No students yet!</p>
