@@ -10,23 +10,27 @@
 <% end %>
 <% if @students.any? %>
   <h2>Students</h2>
-  <div class="students-list col-12">
+  <div class="students-list col-12" data-controller="student-details">
     <div class="student-names col-4">
       <% @students.each do |student| %>
-        <div class="student-name" style="<% if student.gender == "Male" %>
-          background-color: lightblue
-        <% elsif student.gender == "Female" %>
-          background-color: pink
-        <% elsif student.gender == "Other" %>
-          background-color: lightgreen
-        <% elsif student.gender == "Unknown" %>
-          background-color: lightgray
-        <% end %>">
-          <div><%= student.name %></div>
+        <div class="student-name"
+          data-action="click->student-details#viewStudent"
+          data-student-details-target="studentName"
+          data-student-details-id="<%= student.id %>"
+          style="<% if student.gender == "Male" %>
+            background-color: lightblue
+          <% elsif student.gender == "Female" %>
+            background-color: pink
+          <% elsif student.gender == "Other" %>
+            background-color: lightgreen
+          <% elsif student.gender == "Unknown" %>
+            background-color: lightgray
+          <% end %>">
+          <%= student.name %>
         </div>
       <% end %>
     </div>
-    <div class="student-info col-6">
+    <div class="student-info col-6" data-student-details-target="detailsView">
       <div><%= @students.first.name %></div>
       <div><%= @students.first.student_number %></div>
       <div><%= @students.first.kanji_name.present? ? @students.first.kanji_name : "" %></div>
