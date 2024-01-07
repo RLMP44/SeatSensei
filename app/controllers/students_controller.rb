@@ -1,6 +1,9 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:update, :destroy]
+  before_action :set_student, only: [:update, :destroy, :show]
   before_action :set_s_class
+
+  def show
+  end
 
   def create
     @student = Student.new(student_params)
@@ -30,11 +33,11 @@ class StudentsController < ApplicationController
   private
 
   def set_s_class
-    @s_class = SClass.find(params[:id])
+    @s_class = SClass.find(params[:s_class_id])
   end
 
   def set_student
-    @student = Student.find(params[:s_class_id])
+    @student = Student.find(params[:id])
   end
 
   def student_params

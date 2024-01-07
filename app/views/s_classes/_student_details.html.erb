@@ -1,0 +1,9 @@
+    
+<div class="student-info col-6" data-student-details-target="detailsView">
+  <p><%= student.name %></p>
+  <p><%= student.student_number %></p>
+  <p><%= student.first.kanji_name.present? ? student.kanji_name : "" %></p>
+  <p><%= student.first.points %></p>
+  <p><%= student.first.comments.present? ? student.comments : "Add comments!" %></p>
+  <%= link_to "Remove", s_class_student_path(student), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+</div>
