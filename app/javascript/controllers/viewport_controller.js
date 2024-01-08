@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { Desk } from "./desk_controller.js"
+// import { Desk } from "./desk_controller.js"
 
 export default class extends Controller {
   connect() {
@@ -7,6 +7,7 @@ export default class extends Controller {
   }
 
   constructor(canvas) {
+    super();
     this.canvas = canvas;
     // get context via the canvas once more
     this.ctx = canvas.getContext("2d");
