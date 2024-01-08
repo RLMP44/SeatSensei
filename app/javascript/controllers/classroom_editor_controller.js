@@ -24,11 +24,11 @@ export default class extends Controller {
 
   #addEventListeners() {
     // must bind the classroomEditor as "this" otherwise it will assume "this" is the canvas
-    this.canvas.addEventListener("touchstart", this.#handleTouchStart.bind(this));
-    this.canvas.addEventListener("touchmove", this.#handleTouchMove.bind(this));
+    this.canvas.addEventListener("ontouchstart", this.#handleTouchStart.bind(this));
+    this.canvas.addEventListener("ontouchmove", this.#handleTouchMove.bind(this));
     // prevent menu from popping up
     this.canvas.addEventListener("contextmenu", (evt) => evt.preventDefault());
-    this.canvas.addEventListener("touchend", () => this.dragging = false);
+    this.canvas.addEventListener("ontouchend", () => this.dragging = false);
     }
 
   #handleTouchStart(evt) {
