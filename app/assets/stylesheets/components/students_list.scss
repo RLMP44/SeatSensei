@@ -3,7 +3,7 @@
 }
 
 .student-name {
-  margin: 4px;
+  margin: 4px 24px 4px 0px;
   padding: 4px;
   text-align: center;
   &:hover {
@@ -21,9 +21,21 @@
   width: 800px;
   height: 600px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  text-align: center;
+}
+
+.student-info p {
+  text-align: center;
 }
 
 .class-btn {
   display: flex;
   gap: 16px;
+  margin-right: 173px;
+  align-items: flex-end;
+  flex-direction: column-reverse;
+}
+
+h1 {
+  text-align: center;
 }
