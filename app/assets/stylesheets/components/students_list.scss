@@ -1,14 +1,29 @@
 .students-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
 }
 
-
-.student-info {
+.student-name {
   margin: 4px;
   padding: 4px;
   text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.student-names {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.student-info {
+  width: 800px;
+  height: 600px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.class-btn {
+  display: flex;
+  gap: 16px;
 }

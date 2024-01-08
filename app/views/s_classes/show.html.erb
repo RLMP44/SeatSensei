@@ -1,44 +1,79 @@
 <h1>Year <%= @s_class.year %>, Kumi <%= @s_class.kumi %></h1>
-<%= link_to "Delete Class", s_class_path(@s_class), class: "btn btn-warning", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  New Student
-</button>
-<%= form_with model: @classrooms, method: :post, url: redirect_to_classroom_path(s_class_id: @s_class.id) do |f| %>
-  <%= f.collection_select :classroom_id, @classrooms, :id, :name, prompt: 'Choose Classroom', classroom_id: :classroom_id  %>
-  <%= f.submit "Assign Classroom", class: "btn btn-secondary" %>
+<div class="class-btn"><%= link_to "Delete Class", s_class_path(@s_class), class: "btn btn-warning", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+  <!-- Button trigger new modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropNew">
+    New Student
+  </button>
+  <%= form_with model: @classrooms, method: :post, url: redirect_to_classroom_path(s_class_id: @s_class.id) do |f| %>
+    <%= f.collection_select :classroom_id, @classrooms, :id, :name, prompt: 'Choose Classroom', classroom_id: :classroom_id  %>
+    <%= f.submit "Assign Classroom", class: "btn btn-secondary" %>
+  </div>
 <% end %>
 <% if @students.any? %>
   <h2>Students</h2>
-  <div class="students-list col-8">
-    <% @students.each do |student| %>
-      <div class="student-info" style="<% if student.gender == "Male" %>
-          background-color: lightblue
-        <% elsif student.gender == "Female" %>
-          background-color: pink
-        <% elsif student.gender == "Other" %>
-          background-color: lightgreen
-        <% elsif student.gender == "Unknown" %>
-          background-color: lightgray
-        <% end %>">
-        <div><%= student.name %></div>
-        <div><%= student.student_number %></div>
-        <div><%= student.kanji_name.present? ? student.kanji_name : "" %></div>
-        <div><%= student.points %></div>
-        <div><%= student.comments.present? ? student.comments : "Add comments!" %></div>
-        <%= link_to "Remove", s_class_student_path(student), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+  <div class="students-list col-12" data-controller="student-details" data-student-details-class-id-value="<%= @s_class.id %>">
+    <div class="student-names col-3">
+      <% @students.each do |student| %>
+        <%# Students List %>
+        <div class="student-name"
+          data-action="click->student-details#viewStudent"
+          data-student-details-target="studentName"
+          data-id="<%= student.id %>"
+          style="<% if student.gender == "Male" %>
+            background-color: lightblue
+          <% elsif student.gender == "Female" %>
+            background-color: pink
+          <% elsif student.gender == "Other" %>
+            background-color: lightgreen
+          <% elsif student.gender == "Unknown" %>
+            background-color: lightgray
+          <% end %>">
+          <%= student.name %>
+        </div>
+      <% end %>
+    </div>
+    <%# Student Info %>
+    <div  data-controller="comments" class="student-info col-6" data-student-details-target="detailsView">
+      <p><%= @students.first.name %></p>
+      <p><%= @students.first.student_number %></p>
+      <p><%= @students.first.kanji_name.present? ? @students.first.kanji_name : "" %></p>
+      <p><%= @students.first.points %></p>
+      <p><%= @students.first.comments %></p>
+      <button data-action="click->comments#showCommentsForm" class="btn btn-secondary">Add/Edit Comments</button>
+      <%= simple_form_for [@s_class, @students.first], html: {class: "d-none form-control"}, data: {comments_target: "commentsForm"} do |f| %>
+        <%= f.input :comments, label: "Your comments:" %>
+        <%= f.submit "Save Comments" %>
+      <% end %>
+      <!-- Button trigger edit modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
+        Edit Student
+      </button>
+      <!-- Edit Modal -->
+      <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelEdit" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabelEdit">Edit Student</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= render "student_form",  s_class: @s_class, student: @students.first %>
+            </div>
+          </div>
+        </div>
       </div>
-    <% end %>
+      <%= link_to "Remove Student", s_class_student_path(@students.first), class: "btn btn-warning", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+    </div>
   </div>
 <% else %>
   <p>No students yet!</p>
 <% end %>
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- New Modal -->
+<div class="modal fade" id="staticBackdropNew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelNew" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">New Student</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabelNew">New Student</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
