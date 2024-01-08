@@ -6,7 +6,7 @@
       <div class="container classes-container col-8">
         <h3 class="justify-content-center">My Classes</h3>
         <div class="classes-cards-container">
-          <% if @s_classes.any? %>
+          <% if @s_classes.present? %>
             <%# create individual class cards %>
             <% @s_classes.each do |s_class| %>
               <div class="s-class-cards">
@@ -25,7 +25,7 @@
       <%# RIGHT-SIDE CONTAINER %>
       <div class="container classrooms-container col-3">
         <h3>My Classrooms</h3>
-        <% if @classrooms.any? %>
+        <% if @classrooms.present? %>
           <%# create individual classroom cards %>
           <% @classrooms.each do |classroom| %>
             <div class="classroom-cards">
