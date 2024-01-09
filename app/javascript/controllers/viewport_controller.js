@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { Desk } from "./desk_controller.js"
+import Desk from "./desk_controller.js"
 
 export default class extends Controller {
   connect() {
@@ -7,14 +7,15 @@ export default class extends Controller {
   }
 
   constructor(canvas) {
+    super();
     this.canvas = canvas;
     // get context via the canvas once more
-    this.ctx = canvas.getContext("2d");
+    this.ctx = this.canvas.getContext("2d");
 
     // set to default
     this.zoom = 1;
-    this.center = new Desk(canvas.width / 2, canvas.height / 2, 150, 100);
-    this.offset = scale(this.center, -1);
+    this.center = new Desk(this.canvas.width / 2, this.canvas.height / 2, 150, 100);
+    this.offset = this.scale(this.center, -1);
 
     this.drag = {
       // may have to change height and width to working-height and width here
@@ -71,9 +72,9 @@ export default class extends Controller {
   }
 
   #addEventListeners() {
-    this.canvas.addEventListener("touchstart", this.#handleTouchStart.bind(this));
-    this.canvas.addEventListener("touchmove", this.#handleTouchMove.bind(this));
-    this.canvas.addEventListener("touchend", this.#handleTouchEnd.bind(this));
+    this.canvas.addEventListener("ontouchstart", this.#handleTouchStart.bind(this));
+    this.canvas.addEventListener("ontouchmove", this.#handleTouchMove.bind(this));
+    this.canvas.addEventListener("ontouchend", this.#handleTouchEnd.bind(this));
   }
 
   #handleTouchEnd(evt) {
