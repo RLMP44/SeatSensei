@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   # As a user, I can view a class
   resources :s_classes, only: [:show, :create, :destroy] do
     # As a user, I can add students to a class
-    resources :students, only: [:create, :update, :destroy, :show]
-    # resources :students, defaults: { format: :json }, only: :show
+    resources :students, only: [:create, :update, :destroy]
+    resources :students, defaults: { format: :json }, only: :show
   end
 
   post "redirect_to_classroom", to: "s_classes#redirect_to_classroom"
