@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:update, :destroy, :show]
-  before_action :set_s_class
+  before_action :set_s_class, except: [:destroy]
 
   def show
   end
@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
 
   def destroy
     @student.destroy
-    redirect_to s_class_path(@s_class)
+    redirect_to s_class_path(@student.s_class)
   end
 
   private
