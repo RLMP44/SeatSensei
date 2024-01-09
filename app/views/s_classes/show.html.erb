@@ -34,10 +34,10 @@
     </div>
     <%# Student Info %>
     <div  data-controller="comments" class="student-info col-6" data-student-details-target="detailsView">
-      <p><%= @students.first.name %></p>
-      <p><%= @students.first.student_number %></p>
-      <p><%= @students.first.kanji_name.present? ? @students.first.kanji_name : "" %></p>
-      <p><%= @students.first.points %></p>
+      <h3><%= @students.first.name %></h3>
+      <h4><%= @students.first.kanji_name.present? ? @students.first.kanji_name : "" %></h4>
+      <p>#<%= @students.first.student_number %></p>
+      <p><%= @students.first.points %> pts</p>
       <p><%= @students.first.comments %></p>
       <button data-action="click->comments#showCommentsForm" class="btn btn-secondary">Add/Edit Comments</button>
       <%= simple_form_for [@s_class, @students.first], html: {class: "d-none form-control"}, data: {comments_target: "commentsForm"} do |f| %>
