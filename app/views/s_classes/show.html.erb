@@ -2,7 +2,7 @@
 <div class="class-btn"><%= link_to "Delete Class", s_class_path(@s_class), class: "btn btn-warning", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
   <!-- Button trigger new modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropNew">
-    New Student
+    Add Student
   </button>
   <%= form_with model: @classrooms, method: :post, url: redirect_to_classroom_path(s_class_id: @s_class.id) do |f| %>
     <%= f.collection_select :classroom_id, @classrooms, :id, :name, prompt: 'Choose Classroom', classroom_id: :classroom_id  %>
@@ -47,14 +47,14 @@
         <% end %>
         <!-- Button trigger edit modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit">
-          Edit Student
+          Edit Info
         </button>
         <!-- Edit Modal -->
         <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelEdit" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabelEdit">Edit Student</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabelEdit">Edit Info</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
