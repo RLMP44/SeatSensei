@@ -1,9 +1,14 @@
 class ArrangementsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def create
-    @arrangement = Arrangement.new(arrangement_params)
-    @arrangement.classroom = params[:classroom_id]
-    @arrangement.s_class = params[:s_class_id]
+    @arrangement = Arrangement.new
+    @arrangement.classroom = Classroom.find(params[:classroom_id])
+    # json_params = JSON.parse(request.raw_post)
+    @arrangement.s_class = SClass.find(params[:s_class_id])
     @arrangement.save!
+
+    head :no_content
   end
 
   def update

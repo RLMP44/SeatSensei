@@ -6,7 +6,7 @@ class ClassroomsController < ApplicationController
     # arr = create_arr(@s_class)
     # @hash = {s_class_id: @s_class.id, students: arr}.to_json
     if @classroom.arrangements.where(s_class: @s_class).present?
-      @arrangement = @classroom.arrangements.where(s_class: @s_class)
+      @arrangement = @classroom.arrangements.find_by(s_class: @s_class)
     else
       @arrangement = Arrangement.new
     end

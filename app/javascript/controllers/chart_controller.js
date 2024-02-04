@@ -6,7 +6,23 @@ export default class extends Controller {
   static targets = ["form"]
 
   connect() {
-    console.log("hello from chart!")
+    // console.log(this.formTarget.querySelector('#arrangement_s_class_id').value)
+    // const urlArray = this.formTarget.action.split('?')
+    // const post = `${urlArray[0]}`
+    if (this.formTarget.getAttribute('data-new') === true) {
+      fetch(this.formTarget.action, {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-type": "application/json" },
+        body: JSON.stringify({s_class_id: this.formTarget.querySelector('#arrangement_s_class_id').value})
+      }).then(response => response.json())
+        .then(jsonResponse => {
+          console.log(jsonResponse);
+        }).catch (error => {
+          console.log(error)
+        })
+    } else {
+      console.log(this.formTarget.getAttribute('data-new'))
+    }
   }
 
   onDragStart(event) {
@@ -40,13 +56,19 @@ export default class extends Controller {
   }
 
   getPositions() {
-    const students = [...this.element.querySelectorAll('seat')]
-
-    return students.map(student => ({
-      student_id: student.getAttribute('data-student'),
-      row: this.getPosition(student)[0],
-      col: this.getPosition(student)[1],
-    }))
+    const seats = [this.element.querySelectorAll('.seat')]
+    console.log(seats)
+    const seatsArray = []
+    seats.forEach((seat) => {
+      console.log(seat)
+      seatsArray.push({
+        student_id: seat.getAttribute('data-student'),
+        row: this.getPosition(seat)[0],
+        col: this.getPosition(seat)[1],
+      })
+    })
+    console.log(seatsArray)
+    return seatsArray
   }
 
   setPosition(seat, [row, col]) {
@@ -67,13 +89,31 @@ export default class extends Controller {
     seat.innerText = oldText
     seat.style.backgroundColor = oldColor
 
-    // seat.setAttribute('data-row', row)
-    // seat.setAttribute('data-col', col)
+    seat.setAttribute('data-row', row)
+    seat.setAttribute('data-col', col)
   }
 
   swap(seat1, seat2) {
     const seat2Pos = this.getPosition(seat2)
     this.setPosition(seat1, seat2Pos)
+  }
+
+  save(data) {
+    const arrangement = this.formTarget.getAttribute('data-arrangement')
+    // console.log(arrangement);
+    const url = `${this.formTarget.action}/${arrangement.id}`
+    // console.log(url)
+
+    fetch(url, {
+      method: "PATCH",
+      headers: { "Accept": "application/json" },
+      body: JSON.stringify(data)
+    }).then(response => response.json())
+      .then(jsonResponse => {
+        console.log(jsonResponse);
+      }).catch (error => {
+        console.log(error)
+      })
   }
 
   onDrop(event) {
@@ -94,22 +134,16 @@ export default class extends Controller {
       this.swap(sourceElement, targetElement)
       event.preventDefault()
     }
-  }
 
-  save(data) {
-    fetch(this.formTarget.action, {
-      method: "POST",
-      headers: { "Accept": "application/json" },
-      body: new FormData(this.formTarget)
-    }).then(response => response.json()) //change this later
+    this.save({
+      seats: {
+        students: this.getPositions()
+      }
+    })
   }
 
   onDragEnd(event) {
     // this.element.classList.remove('dragging')
-    this.save({
-      s_class: {
-        students: this.getPositions()
-      }
-    })
+
   }
 }

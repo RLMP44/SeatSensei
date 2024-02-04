@@ -28,9 +28,17 @@
       <h6 class="my-1">Back</h6>
       <%=  render "chart", classroom: @classroom, s_class: @s_class %>
       <h6 class="my-1">Front</h6>
-      <%= simple_form_for [@classroom, @arrangement], html: { hidden: "true" }, data: { chart_target: "form" } do |f|%>
-        <% f.input :json_file %>
-        <% f.submit %>
+      <% is_new = !@classroom.arrangements.where(s_class: @s_class).present? %>
+      <% if is_new %>
+        <%= simple_form_for [@classroom, @arrangement], html: { hidden: "true" },
+        data: { chart_target: "form", arrangement: @arrangement, s_class_id: @s_class.id, new: is_new } do |f|%>
+          <%= f.input :s_class_id, input_html: { value: @s_class.id } %>
+        <% end %>
+      <% else %>
+        <%= simple_form_for [@classroom, @arrangement], url: classroom_arrangement_path(@classroom, @arrangement), method: :patch, html: { hidden: "true" },
+        data: { chart_target: "form", arrangement: @arrangement, s_class_id: @s_class.id, new: is_new } do |f|%>
+          <%= f.input :s_class_id, input_html: { value: @s_class.id } %>
+        <% end %>
       <% end %>
     </div>
   </div>
