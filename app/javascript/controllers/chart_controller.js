@@ -9,6 +9,8 @@ export default class extends Controller {
     // console.log(this.formTarget.querySelector('#arrangement_s_class_id').value)
     // const urlArray = this.formTarget.action.split('?')
     // const post = `${urlArray[0]}`
+    console.log(document.querySelector('.chart').getAttribute('data-students'))
+    this.students_hash = JSON.parse(document.querySelector('.chart').getAttribute('data-students'))
     if (this.formTarget.getAttribute('data-new') === true) {
       fetch(this.formTarget.action, {
         method: "POST",
@@ -21,7 +23,8 @@ export default class extends Controller {
           console.log(error)
         })
     } else {
-      console.log(this.formTarget.getAttribute('data-new'))
+      console.log(this.students_hash.json_file)
+      this.students_hash.json_file
     }
   }
 
@@ -136,9 +139,9 @@ export default class extends Controller {
     }
 
     this.save({
-      seats: {
-        students: this.getPositions()
-      }
+      students: [
+        this.getPositions()
+      ]
     })
   }
 
