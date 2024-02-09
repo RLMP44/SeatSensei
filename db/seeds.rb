@@ -8,6 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+Arrangement.destroy_all
 Seat.destroy_all
 Classroom.destroy_all
 Student.destroy_all
@@ -48,3 +49,11 @@ Seat.create!(row: 1, column: 4, student: student_5, classroom: classroom_1)
 Seat.create!(row: 1, column: 3, student: student_6, classroom: classroom_1)
 Seat.create!(row: 2, column: 3, student: student_7, classroom: classroom_1)
 Seat.create!(row: 2, column: 2, student: student_8, classroom: classroom_1)
+
+# Seats
+puts("Creating arrangements...")
+Arrangement.create!(
+  json_file: '{students: [{student_id:14,row:1,col:4},{student_id:15,row:1,col:3},{student_id:16,row:2,col:3},{student_id:17,row:2,col:2}]}',
+  classroom: classroom_1,
+  s_class: class_3a
+  )

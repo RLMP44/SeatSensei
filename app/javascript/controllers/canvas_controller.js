@@ -4,45 +4,45 @@ import Classroom from "./classroom_controller.js"
 import ClassroomEditor from "./classroom_editor_controller.js"
 
 export default class extends Controller {
-  connect() {
-    console.log("hello from canvas controller");
+  // connect() {
+  //   console.log("hello from canvas controller");
 
-    // start JavaScript canvas here
-    const canvas = this.element
+  //   // start JavaScript canvas here
+  //   const canvas = this.element
 
-    const ctx = canvas.getContext("2d");
+  //   const ctx = canvas.getContext("2d");
 
-    const classroomString = localStorage.getItem("classroom");
-    // check if a classroom file already exists, if so parse
-    const classroomInfo = classroomString ? JSON.parse(classroomString) : null;
-    // make classroom with existing info if exists, or an empty classroom if not
-    const classroom = classroomInfo
-      ? classroom.load(classroomInfo)
-      : new Classroom();
-    const viewport = new Viewport(canvas);
-    // initialize with the viewport so it knows level of zoom
-    const classroomEditor = new ClassroomEditor(viewport, classroom);
+  //   const classroomString = localStorage.getItem("classroom");
+  //   // check if a classroom file already exists, if so parse
+  //   const classroomInfo = classroomString ? JSON.parse(classroomString) : null;
+  //   // make classroom with existing info if exists, or an empty classroom if not
+  //   const classroom = classroomInfo
+  //     ? classroom.load(classroomInfo)
+  //     : new Classroom();
+  //   const viewport = new Viewport(canvas);
+  //   // initialize with the viewport so it knows level of zoom
+  //   const classroomEditor = new ClassroomEditor(viewport, classroom);
 
-    this.animate(classroomEditor, viewport);
-  }
+  //   this.animate(classroomEditor, viewport);
+  // }
 
-  animate(classroomEditor, viewport) {
-    viewport.reset();
-    classroomEditor.display();
-    requestAnimationFrame(animate);
-  }
+  // animate(classroomEditor, viewport) {
+  //   viewport.reset();
+  //   classroomEditor.display();
+  //   requestAnimationFrame(animate);
+  // }
 
-  dispose(classroomEditor) {
-    classroomEditor.dispose();
-  }
+  // dispose(classroomEditor) {
+  //   classroomEditor.dispose();
+  // }
 
-  save(classroom) {
-    // save to local storage, but must be JSON file
-    // local storage only works with strings
-    localStorage.setItem("classroom", JSON.stringify(classroom));
-    // can check to see if it's been saved by going to the console
-    // and typing in "localStorage.getItem('classroom')"
-  }
+  // save(classroom) {
+  //   // save to local storage, but must be JSON file
+  //   // local storage only works with strings
+  //   localStorage.setItem("classroom", JSON.stringify(classroom));
+  //   // can check to see if it's been saved by going to the console
+  //   // and typing in "localStorage.getItem('classroom')"
+  // }
 }
 
 

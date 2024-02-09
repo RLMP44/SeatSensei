@@ -3,8 +3,10 @@ class ClassroomsController < ApplicationController
 
   def show
     @s_class = SClass.find(params[:s_class_id])
-    if @classroom.arrangements.present?
-      @arrangement = @classroom.arrangements.where(s_class: @s_class)
+    # arr = create_arr(@s_class)
+    # @hash = {s_class_id: @s_class.id, students: arr}.to_json
+    if @classroom.arrangements.where(s_class: @s_class).present?
+      @arrangement = @classroom.arrangements.find_by(s_class: @s_class)
     else
       @arrangement = Arrangement.new
     end
@@ -36,6 +38,16 @@ class ClassroomsController < ApplicationController
   end
 
   private
+
+  def create_arr(s_class)
+    s_class.students.map do |student|
+      {
+        student_id: student.id,
+        row: student.seat.row,
+        column: student.seat.column
+      }
+    end
+  end
 
   def classroom_params
     params.require(:classroom).permit(:name, :total_rows, :total_columns, :max_seats)

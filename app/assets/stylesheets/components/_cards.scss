@@ -32,4 +32,11 @@
 // on classroom show page
 .show {
   width: 90%;
+  [draggable=true] {
+    cursor: move;
+    cursor: grab;
+  }
+  resize: both;
+  max-width: 300px;
+  max-height: 80px;
 }
