@@ -10,6 +10,9 @@ export default class extends Controller {
     // console.log(this.formTarget.querySelector('#arrangement_s_class_id').value)
     // const urlArray = this.formTarget.action.split('?')
     // const post = `${urlArray[0]}`
+
+    this.cells = this.element.querySelectorAll('td')
+
     if (this.formTarget.getAttribute('data-new') === true) {
       fetch(this.formTarget.action, {
         method: "POST",
@@ -24,6 +27,30 @@ export default class extends Controller {
     } else {
       const students_array = JSON.parse(this.studentsValue).students
       console.log(students_array)
+      students_array.forEach((student) => {
+        this.cells.forEach((cell) => {
+          if ((cell.cellIndex === parseInt(student.col, 10)) && (cell.parentElement.rowIndex === parseInt(student.row, 10))) {
+            switch (student.gender) {
+              case 'Male':
+                cell.style.backgroundColor = 'lightblue'
+                break
+              case 'Female':
+                cell.style.backgroundColor = 'pink'
+                break
+              case 'Other':
+                cell.style.backgroundColor = 'lightgreen'
+                break
+              case 'Unknown':
+                cell.style.backgroundColor = 'lightgray'
+                break
+            }
+            cell.innerText = student.name
+            cell.setAttribute('data-row', student.row)
+            cell.setAttribute('data-col', student.col)
+            cell.setAttribute('data-student', student.student_id)
+          }
+        })
+      })
     }
   }
 
@@ -73,6 +100,7 @@ export default class extends Controller {
     return seatsArray
   }
 
+  // ADD STUDENT ID TO ARGUMENTS
   setPosition(seat, [row, col]) {
     // seat = element, [row, col] = the position it should move to
     const filter = Array.prototype.filter
@@ -93,6 +121,7 @@ export default class extends Controller {
 
     seat.setAttribute('data-row', row)
     seat.setAttribute('data-col', col)
+    // seat.setAttribute('data-student', student_id)
   }
 
   swap(seat1, seat2) {
