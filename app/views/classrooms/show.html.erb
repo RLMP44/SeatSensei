@@ -1,4 +1,5 @@
-<div class="container" data-controller="chart">
+<% students = @classroom.arrangements.find_by(s_class_id: @s_class.id).json_file %>
+<div class="container" data-controller="chart" data-chart-students-value="<%= students %>">
   <div class="container d-flex row">
     <h1 class="d-flex justify-content-center col-12"><%= @classroom.name %></h1>
     <div class="container classes-container col-2">
