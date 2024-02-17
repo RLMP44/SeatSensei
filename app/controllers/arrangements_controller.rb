@@ -12,6 +12,7 @@ class ArrangementsController < ApplicationController
   end
 
   def update
+    p params
     @arrangement = Arrangement.find(params[:id])
     @arrangement.update(arrangement_params)
     @arrangement.save!

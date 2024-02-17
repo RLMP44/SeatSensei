@@ -85,19 +85,39 @@ export default class extends Controller {
   }
 
   getPositions() {
-    const seats = [this.element.querySelectorAll('.seat')]
-    console.log(seats)
     const seatsArray = []
-    seats.forEach((seat) => {
+    this.cells.forEach((seat) => {
       console.log(seat)
-      seatsArray.push({
-        student_id: seat.getAttribute('data-student'),
-        row: this.getPosition(seat)[0],
-        col: this.getPosition(seat)[1],
-      })
+      if (seat.getAttribute('student_id') !== "") {
+        seatsArray.push({
+          student_id: seat.getAttribute('data-student'),
+          row: this.getPosition(seat)[0],
+          col: this.getPosition(seat)[1],
+          name: seat.innerText,
+          gender: this.getGender(seat)
+        })
+      }
     })
     console.log(seatsArray)
     return seatsArray
+  }
+
+  getGender(seat) {
+    switch (seat.style.backgroundColor) {
+      case 'lightblue':
+        return 'Male'
+        break
+      case 'pink':
+        return 'Female'
+        break
+      case 'lightgreen':
+        return 'Other'
+        break
+      case 'lightgray':
+        return 'Unknown'
+        break
+    }
+
   }
 
   // ADD STUDENT ID TO ARGUMENTS
@@ -115,13 +135,17 @@ export default class extends Controller {
 
     newCell.innerText = seat.innerText
     newCell.style.backgroundColor = seat.style.backgroundColor
+    const new_student_id = seat.getAttribute('data-student')
+    const old_student_id = newCell.getAttribute('data-student')
+    newCell.setAttribute('data-student', new_student_id)
+    seat.setAttribute('data-student', old_student_id)
+
 
     seat.innerText = oldText
     seat.style.backgroundColor = oldColor
 
     seat.setAttribute('data-row', row)
     seat.setAttribute('data-col', col)
-    // seat.setAttribute('data-student', student_id)
   }
 
   swap(seat1, seat2) {
@@ -130,21 +154,22 @@ export default class extends Controller {
   }
 
   save(data) {
-    const arrangement = this.formTarget.getAttribute('data-arrangement')
-    // console.log(arrangement);
-    const url = `${this.formTarget.action}/${arrangement.id}`
-    // console.log(url)
-
+    const arrangement = JSON.parse(this.formTarget.getAttribute('data-arrangement'))
+    const url = `${this.formTarget.action}`
+    console.log(url)
+    this.formTarget.querySelector('#arrangement_json_file').value = JSON.stringify(data)
+    const formData = new FormData(this.formTarget)
     fetch(url, {
       method: "PATCH",
       headers: { "Accept": "application/json" },
-      body: JSON.stringify(data)
+      body: formData
     }).then(response => response.json())
       .then(jsonResponse => {
         console.log(jsonResponse);
       }).catch (error => {
         console.log(error)
       })
+      // arrangement: { json_file: JSON.stringify(data) }
   }
 
   onDrop(event) {
