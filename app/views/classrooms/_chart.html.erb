@@ -1,9 +1,8 @@
-<% students = classroom.arrangements.find_by(s_class_id: s_class.id) %>
-<table class="chart" data-students="<%= students.to_json %>" data-action="dragstart->chart#onDragStart dragover->chart#onDragOver dragenter->chart#onDragEnter drop->chart#onDrop dragend->chart#onDragEnd">
+<table class="chart" data-action="dragstart->chart#onDragStart dragover->chart#onDragOver dragenter->chart#onDragEnter drop->chart#onDrop dragend->chart#onDragEnd">
   <% classroom.total_rows.times do %>
     <tr>
       <% classroom.total_columns.times do %>
-        <td draggable="true" data-row="empty" data-col="empty" data-student="empty" class="seat">
+        <td draggable="true" data-row="" data-col="" data-student="" class="seat">
         </td>
       <% end %>
     </tr>

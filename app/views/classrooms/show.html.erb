@@ -1,4 +1,5 @@
-<div class="container" data-controller="chart">
+<% students = @classroom.arrangements.find_by(s_class_id: @s_class.id).json_file %>
+<div class="container" data-controller="chart" data-chart-students-value="<%= students %>">
   <div class="container d-flex row">
     <h1 class="d-flex justify-content-center col-12"><%= @classroom.name %></h1>
     <div class="container classes-container col-2">
@@ -38,6 +39,7 @@
         <%= simple_form_for [@classroom, @arrangement], url: classroom_arrangement_path(@classroom, @arrangement), method: :patch, html: { hidden: "true" },
         data: { chart_target: "form", arrangement: @arrangement, s_class_id: @s_class.id, new: is_new } do |f|%>
           <%= f.input :s_class_id, input_html: { value: @s_class.id } %>
+          <%= f.input :json_file, input_html: { value: "" } %>
         <% end %>
       <% end %>
     </div>
