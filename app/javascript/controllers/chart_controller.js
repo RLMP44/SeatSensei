@@ -13,15 +13,12 @@ export default class extends Controller {
 
     this.cells = this.element.querySelectorAll('td')
 
-    if (this.formTarget.getAttribute('data-new') === true) {
+    if (this.formTarget.getAttribute('data-new') === "true") {
       fetch(this.formTarget.action, {
         method: "POST",
         headers: { "Accept": "application/json", "Content-type": "application/json" },
         body: JSON.stringify({s_class_id: this.formTarget.querySelector('#arrangement_s_class_id').value})
-      }).then(response => response.json())
-        .then(jsonResponse => {
-          console.log(jsonResponse);
-        }).catch (error => {
+      }).then(response => response.text()).then(console.log(data)).catch (error => {
           console.log(error)
         })
     } else {
@@ -61,9 +58,18 @@ export default class extends Controller {
     let hash
 
     if (event.target.classList.contains("s-class-cards")) {
-      hash = {row: null, col: null, color: event.target.style.backgroundColor, name: event.target.innerText}
+      hash = {
+        row: null,
+        col: null,
+        student_id: event.target.getAttribute('data-student'),
+        color: event.target.style.backgroundColor,
+        name: event.target.innerText
+      }
     } else {
-      hash = {row: event.target.parentElement.rowIndex, col: event.target.cellIndex}
+      hash = {
+        row: event.target.parentElement.rowIndex,
+        col: event.target.cellIndex
+      }
     }
 
     const data = JSON.stringify(hash)
@@ -87,8 +93,8 @@ export default class extends Controller {
   getPositions() {
     const seatsArray = []
     this.cells.forEach((seat) => {
-      console.log(seat)
-      if (seat.getAttribute('student_id') !== "") {
+      // console.log(seat)
+      if (seat.getAttribute('data-student') !== "") {
         seatsArray.push({
           student_id: seat.getAttribute('data-student'),
           row: this.getPosition(seat)[0],
@@ -120,7 +126,6 @@ export default class extends Controller {
 
   }
 
-  // ADD STUDENT ID TO ARGUMENTS
   setPosition(seat, [row, col]) {
     // seat = element, [row, col] = the position it should move to
     const filter = Array.prototype.filter
@@ -154,22 +159,19 @@ export default class extends Controller {
   }
 
   save(data) {
-    const arrangement = JSON.parse(this.formTarget.getAttribute('data-arrangement'))
+    // const arrangement = JSON.parse(this.formTarget.getAttribute('data-arrangement'))
     const url = `${this.formTarget.action}`
-    console.log(url)
+    // console.log(url)
     this.formTarget.querySelector('#arrangement_json_file').value = JSON.stringify(data)
+    console.log(this.formTarget.querySelector('#arrangement_json_file').value)
     const formData = new FormData(this.formTarget)
     fetch(url, {
       method: "PATCH",
       headers: { "Accept": "application/json" },
       body: formData
-    }).then(response => response.json())
-      .then(jsonResponse => {
-        console.log(jsonResponse);
-      }).catch (error => {
+    }).then(response => response.text()).then(console.log(data)).catch (error => {
         console.log(error)
       })
-      // arrangement: { json_file: JSON.stringify(data) }
   }
 
   onDrop(event) {
@@ -179,6 +181,9 @@ export default class extends Controller {
     if (Object.values(props).includes(null)) {
       targetElement.innerText = props.name
       targetElement.style.backgroundColor = props.color
+      targetElement.setAttribute('data-row', targetElement.parentElement.rowIndex)
+      targetElement.setAttribute('data-col', targetElement.cellIndex)
+      targetElement.setAttribute('data-student', props.student_id)
       event.preventDefault()
     } else {
       const cells = this.element.querySelectorAll("td")
@@ -187,14 +192,13 @@ export default class extends Controller {
         return cell.cellIndex === props.col && cell.parentElement.rowIndex === props.row
       })[0]
 
+      // console.log(sourceElement)
       this.swap(sourceElement, targetElement)
       event.preventDefault()
     }
 
     this.save({
-      students: [
-        this.getPositions()
-      ]
+      students: this.getPositions()
     })
   }
 
