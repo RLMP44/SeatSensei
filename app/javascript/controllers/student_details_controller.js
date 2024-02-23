@@ -8,6 +8,7 @@ export default class extends Controller {
   connect() {
     console.log("hello from student view!")
     // console.log(this.detailsViewTarget)
+    // setting the first student to appear on page load
     this.detailsViewTarget.firstElementChild.classList.remove('d-none')
   }
 
@@ -28,10 +29,12 @@ export default class extends Controller {
     //  })
 
     // console.log(this.detailsViewTarget.children)
+    // this.detailsViewTarget.children is an HTMLCollection, so it needs to be converted to array
     Array.from(this.detailsViewTarget.children).forEach((student) => {
       student.classList.add('d-none')
     })
     const selectedId = event.target.getAttribute('data-id')
+    // finding the matching id
     const filter = Array.prototype.filter
     const selectedStudent = filter.call(this.detailsViewTarget.children, function(student) {
       return selectedId === student.id
