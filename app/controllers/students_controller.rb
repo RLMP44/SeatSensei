@@ -2,9 +2,6 @@ class StudentsController < ApplicationController
   before_action :set_student, only: [:update, :destroy, :show]
   before_action :set_s_class, except: [:destroy]
 
-  def show
-  end
-
   def create
     @student = Student.new(student_params)
     @student.s_class = @s_class
