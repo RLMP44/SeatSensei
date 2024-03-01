@@ -21,10 +21,6 @@
     <%# display classroom arrangement %>
     <div class="container classrooms-container col-9">
       <h3><% @classroom.name %></h3>
-      <div id="controls">
-        <button data-action="">🗑️</button>
-        <button data-action="">💾</button>
-      </div>
       <h6 class="my-1">Back</h6>
       <%=  render "chart", classroom: @classroom, s_class: @s_class %>
       <h6 class="my-1">Front</h6>

@@ -16,6 +16,8 @@ class ArrangementsController < ApplicationController
     @arrangement = Arrangement.find(params[:id])
     @arrangement.update(arrangement_params)
     @arrangement.save!
+
+    head :no_content
   end
 
   private
