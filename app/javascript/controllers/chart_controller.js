@@ -23,7 +23,7 @@ export default class extends Controller {
         })
     } else {
       const students_array = JSON.parse(this.studentsValue).students
-      console.log(students_array)
+      // console.log(students_array)
       students_array.forEach((student) => {
         this.cells.forEach((cell) => {
           if ((cell.cellIndex === parseInt(student.col, 10)) && (cell.parentElement.rowIndex === parseInt(student.row, 10))) {
@@ -104,7 +104,7 @@ export default class extends Controller {
         })
       }
     })
-    console.log(seatsArray)
+    // console.log(seatsArray)
     return seatsArray
   }
 
@@ -163,7 +163,7 @@ export default class extends Controller {
     const url = `${this.formTarget.action}`
     // console.log(url)
     this.formTarget.querySelector('#arrangement_json_file').value = JSON.stringify(data)
-    console.log(this.formTarget.querySelector('#arrangement_json_file').value)
+    // console.log(this.formTarget.querySelector('#arrangement_json_file').value)
     const formData = new FormData(this.formTarget)
     fetch(url, {
       method: "PATCH",
@@ -191,8 +191,11 @@ export default class extends Controller {
       const sourceElement = filter.call(cells, function(cell) {
         return cell.cellIndex === props.col && cell.parentElement.rowIndex === props.row
       })[0]
-
-      // console.log(sourceElement)
+      // --------------------------- TO ADD ------------------------------ //
+      // check if student already exists in cell when being dropped from list
+      // don't allow user to add the same student twice (no repeats)
+        // auto delete previous cell if adding a student that already is in a cell
+      // if student dropped outside of chart (not in a cell), delete student from chart
       this.swap(sourceElement, targetElement)
       event.preventDefault()
     }
