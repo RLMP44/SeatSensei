@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
 
-  static targets = ["form"]
+  static targets = ["form", 'studentList']
   static values = { "students": String }
 
   connect() {
@@ -180,16 +180,21 @@ export default class extends Controller {
     const props = JSON.parse(event.dataTransfer.getData("application/drag-key"))
 
     if (Object.values(props).includes(null)) {// dragging new student from list
-      const sourceCell = this.filter.call(this.cells, function(cell) {
+      const duplicateCell = this.filter.call(this.cells, function(cell) {
         return cell.getAttribute('data-student') === props.student_id })[0]
-      if (sourceCell) { // check if student already exists in cell when being dropped from list
-        console.log('delete student.')
-        sourceCell.innerText = ''
-        sourceCell.style.backgroundColor = 'lightgray'
-        sourceCell.setAttribute('data-row', '')
-        sourceCell.setAttribute('data-col', '')
-        sourceCell.setAttribute('data-student', '')
+      if (duplicateCell) { // check if student already exists in cell when being dropped from list
+        duplicateCell.innerText = ''
+        duplicateCell.style.backgroundColor = 'lightgray'
+        duplicateCell.setAttribute('data-row', '')
+        duplicateCell.setAttribute('data-col', '')
+        duplicateCell.setAttribute('data-student', '')
       }
+      // console.log(props.student_id)
+      console.log(this.studentListTarget.children)
+      const selectedStudent = this.filter.call(this.studentListTarget.children, function(student) {
+        return student.getAttribute('data-student') === props.student_id })[0]
+      selectedStudent.classList.add('d-none')
+
       targetElement.innerText = props.name
       targetElement.style.backgroundColor = props.color
       targetElement.setAttribute('data-row', targetElement.parentElement.rowIndex)
