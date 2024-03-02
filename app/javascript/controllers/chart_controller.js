@@ -183,9 +183,9 @@ export default class extends Controller {
         duplicateCell.setAttribute('data-student', '')
       }
       // when dragged from list, hide student in list
-      const selectedStudent = this.filter.call(this.studentListTarget.children, function(student) {
+      this.selectedStudent = this.filter.call(this.studentListTarget.children, function(student) {
         return student.getAttribute('data-student') === props.student_id })[0]
-      selectedStudent.classList.add('d-none')
+      this.selectedStudent.classList.add('d-none')
 
       // add student info, etc to cell
       targetElement.innerText = props.name
@@ -199,16 +199,18 @@ export default class extends Controller {
       const sourceElement = this.filter.call(this.cells, function(cell) {
         return cell.cellIndex === props.col && cell.parentElement.rowIndex === props.row
       })[0]
-      if (sourceElement) {
+      console.log(targetElement.tagName)
+      if (targetElement.tagName === 'TD') {
         this.swap(sourceElement, targetElement)
-        event.preventDefault()
-      } else {
+        // event.preventDefault()
+      } else if (targetElement.tagName) {
+        console.log('WAH')
         sourceElement.innerText = ''
         sourceElement.style.backgroundColor = 'lightgray'
         sourceElement.setAttribute('data-row', '')
         sourceElement.setAttribute('data-col', '')
         sourceElement.setAttribute('data-student', '')
-        selectedStudent.classList.remove('d-none')
+        this.selectedStudent.classList.remove('d-none')
       }
     }
 
