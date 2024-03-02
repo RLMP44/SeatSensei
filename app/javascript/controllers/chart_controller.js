@@ -12,6 +12,7 @@ export default class extends Controller {
     // const post = `${urlArray[0]}`
 
     this.cells = this.element.querySelectorAll('td')
+    this.filter = Array.prototype.filter
 
     if (this.formTarget.getAttribute('data-new') === "true") {
       fetch(this.formTarget.action, {
@@ -178,24 +179,34 @@ export default class extends Controller {
     const targetElement = event.target
     const props = JSON.parse(event.dataTransfer.getData("application/drag-key"))
 
-    if (Object.values(props).includes(null)) {
+    if (Object.values(props).includes(null)) {// dragging new student from list
+      const sourceCell = this.filter.call(this.cells, function(cell) {
+        return cell.getAttribute('data-student') === props.student_id })[0]
+      if (sourceCell) { // check if student already exists in cell when being dropped from list
+        console.log('delete student.')
+        sourceCell.innerText = ''
+        sourceCell.style.backgroundColor = 'lightgray'
+        sourceCell.setAttribute('data-row', '')
+        sourceCell.setAttribute('data-col', '')
+        sourceCell.setAttribute('data-student', '')
+      }
       targetElement.innerText = props.name
       targetElement.style.backgroundColor = props.color
       targetElement.setAttribute('data-row', targetElement.parentElement.rowIndex)
       targetElement.setAttribute('data-col', targetElement.cellIndex)
       targetElement.setAttribute('data-student', props.student_id)
       event.preventDefault()
-    } else {
+
+    // } else if () {
+    //   // don't allow user to add the same student twice (no repeats)
+    //     // auto delete previous cell if adding a student that already is in a cell
+    // } else if () {
+      // if student dropped outside of chart (not in a cell), delete student from chart
+    } else { // Swapping seats on the chart
       const cells = this.element.querySelectorAll("td")
-      const filter = Array.prototype.filter
-      const sourceElement = filter.call(cells, function(cell) {
+      const sourceElement = this.filter.call(cells, function(cell) {
         return cell.cellIndex === props.col && cell.parentElement.rowIndex === props.row
       })[0]
-      // --------------------------- TO ADD ------------------------------ //
-      // check if student already exists in cell when being dropped from list
-      // don't allow user to add the same student twice (no repeats)
-        // auto delete previous cell if adding a student that already is in a cell
-      // if student dropped outside of chart (not in a cell), delete student from chart
       this.swap(sourceElement, targetElement)
       event.preventDefault()
     }
