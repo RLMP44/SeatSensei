@@ -3,20 +3,22 @@
     <h1 class="d-flex justify-content-center col-12"><%= @classroom.name %></h1>
     <div class="container classes-container col-2">
       <h3>Students</h3>
-      <% @s_class.students.each do |student| %>
-        <%# create cards %>
-        <div draggable="true" data-action="dragstart->chart#onDragStart" data-student="<%= student.id %>" class="s-class-cards show" style="<% if student.gender == "Male" %>
-            background-color: lightblue
-          <% elsif student.gender == "Female" %>
-            background-color: pink
-          <% elsif student.gender == "Other" %>
-            background-color: lightgreen
-          <% elsif student.gender == "Unknown" %>
-            background-color: lightgray
-          <% end %>">
-          <p><%= student.name %></p>
-        </div>
-      <% end %>
+      <div data-chart-target='studentList'>
+        <% @s_class.students.each do |student| %>
+          <%# create cards %>
+          <div draggable="true" data-action="dragstart->chart#onDragStart" data-student="<%= student.id %>" class="s-class-cards show" style="<% if student.gender == "Male" %>
+              background-color: lightblue
+            <% elsif student.gender == "Female" %>
+              background-color: pink
+            <% elsif student.gender == "Other" %>
+              background-color: lightgreen
+            <% elsif student.gender == "Unknown" %>
+              background-color: lightgray
+            <% end %>">
+            <p><%= student.name %></p>
+          </div>
+        <% end %>
+      </div>
     </div>
     <%# display classroom arrangement %>
     <div class="container classrooms-container col-9">

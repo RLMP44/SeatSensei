@@ -3,15 +3,12 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
 
-  static targets = ["form"]
+  static targets = ["form", 'studentList']
   static values = { "students": String }
 
   connect() {
-    // console.log(this.formTarget.querySelector('#arrangement_s_class_id').value)
-    // const urlArray = this.formTarget.action.split('?')
-    // const post = `${urlArray[0]}`
-
     this.cells = this.element.querySelectorAll('td')
+    this.filter = Array.prototype.filter
 
     if (this.formTarget.getAttribute('data-new') === "true") {
       fetch(this.formTarget.action, {
@@ -23,8 +20,12 @@ export default class extends Controller {
         })
     } else {
       const students_array = JSON.parse(this.studentsValue).students
-      // console.log(students_array)
       students_array.forEach((student) => {
+        Array.from(this.studentListTarget.children).forEach((child) => {
+          if (child.getAttribute('data-student') === student.student_id) {
+            child.classList.add('d-none')
+          }
+        })
         this.cells.forEach((cell) => {
           if ((cell.cellIndex === parseInt(student.col, 10)) && (cell.parentElement.rowIndex === parseInt(student.row, 10))) {
             switch (student.gender) {
@@ -52,9 +53,6 @@ export default class extends Controller {
   }
 
   onDragStart(event) {
-    // this.element.classList.add('dragging')
-    // console.log(event.target);
-
     let hash
 
     if (event.target.classList.contains("s-class-cards")) {
@@ -93,7 +91,6 @@ export default class extends Controller {
   getPositions() {
     const seatsArray = []
     this.cells.forEach((seat) => {
-      // console.log(seat)
       if (seat.getAttribute('data-student') !== "") {
         seatsArray.push({
           student_id: seat.getAttribute('data-student'),
@@ -104,7 +101,6 @@ export default class extends Controller {
         })
       }
     })
-    // console.log(seatsArray)
     return seatsArray
   }
 
@@ -159,11 +155,8 @@ export default class extends Controller {
   }
 
   save(data) {
-    // const arrangement = JSON.parse(this.formTarget.getAttribute('data-arrangement'))
     const url = `${this.formTarget.action}`
-    // console.log(url)
     this.formTarget.querySelector('#arrangement_json_file').value = JSON.stringify(data)
-    // console.log(this.formTarget.querySelector('#arrangement_json_file').value)
     const formData = new FormData(this.formTarget)
     fetch(url, {
       method: "PATCH",
@@ -178,26 +171,47 @@ export default class extends Controller {
     const targetElement = event.target
     const props = JSON.parse(event.dataTransfer.getData("application/drag-key"))
 
-    if (Object.values(props).includes(null)) {
+    if (Object.values(props).includes(null)) {// dragging new student from list
+      // console.log(event)
+      const duplicateCell = this.filter.call(this.cells, function(cell) {
+        return cell.getAttribute('data-student') === props.student_id })[0]
+      if (duplicateCell) { // check if student already exists in cell when being dropped from list
+        duplicateCell.innerText = ''
+        duplicateCell.style.backgroundColor = 'lightgray'
+        duplicateCell.setAttribute('data-row', '')
+        duplicateCell.setAttribute('data-col', '')
+        duplicateCell.setAttribute('data-student', '')
+      }
+      // when dragged from list, hide student in list
+      this.selectedStudent = this.filter.call(this.studentListTarget.children, function(student) {
+        return student.getAttribute('data-student') === props.student_id })[0]
+      this.selectedStudent.classList.add('d-none')
+
+      // add student info, etc to cell
       targetElement.innerText = props.name
       targetElement.style.backgroundColor = props.color
       targetElement.setAttribute('data-row', targetElement.parentElement.rowIndex)
       targetElement.setAttribute('data-col', targetElement.cellIndex)
       targetElement.setAttribute('data-student', props.student_id)
       event.preventDefault()
-    } else {
-      const cells = this.element.querySelectorAll("td")
-      const filter = Array.prototype.filter
-      const sourceElement = filter.call(cells, function(cell) {
+    } else { // Moving seats on the chart
+      // if origin is cell and placement is cell
+      const sourceElement = this.filter.call(this.cells, function(cell) {
         return cell.cellIndex === props.col && cell.parentElement.rowIndex === props.row
       })[0]
-      // --------------------------- TO ADD ------------------------------ //
-      // check if student already exists in cell when being dropped from list
-      // don't allow user to add the same student twice (no repeats)
-        // auto delete previous cell if adding a student that already is in a cell
-      // if student dropped outside of chart (not in a cell), delete student from chart
-      this.swap(sourceElement, targetElement)
-      event.preventDefault()
+      console.log(targetElement.tagName)
+      if (targetElement.tagName === 'TD') {
+        this.swap(sourceElement, targetElement)
+        // event.preventDefault()
+      } else if (targetElement.tagName) {
+        console.log('WAH')
+        sourceElement.innerText = ''
+        sourceElement.style.backgroundColor = 'lightgray'
+        sourceElement.setAttribute('data-row', '')
+        sourceElement.setAttribute('data-col', '')
+        sourceElement.setAttribute('data-student', '')
+        this.selectedStudent.classList.remove('d-none')
+      }
     }
 
     this.save({
