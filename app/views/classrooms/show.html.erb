@@ -1,4 +1,4 @@
-<div class="container" data-controller="chart" data-chart-students-value="<%= @arrangement.json_file %>">
+<div class="container" data-controller="chart" data-action="dragstart->chart#onDragStart dragover->chart#onDragOver dragenter->chart#onDragEnter drop->chart#onDrop dragend->chart#onDragEnd" data-chart-students-value="<%= @arrangement.json_file %>">
   <div class="container d-flex row">
     <h1 class="d-flex justify-content-center col-12"><%= @classroom.name %></h1>
     <div class="container classes-container col-2">

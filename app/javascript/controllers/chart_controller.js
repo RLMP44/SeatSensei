@@ -66,7 +66,8 @@ export default class extends Controller {
     } else {
       hash = {
         row: event.target.parentElement.rowIndex,
-        col: event.target.cellIndex
+        col: event.target.cellIndex,
+        student_id: event.target.getAttribute('data-student')
       }
     }
 
@@ -170,6 +171,11 @@ export default class extends Controller {
   onDrop(event) {
     const targetElement = event.target
     const props = JSON.parse(event.dataTransfer.getData("application/drag-key"))
+    const selectedStudent = this.filter.call(this.studentListTarget.children, function(student) {
+      return student.getAttribute('data-student') === props.student_id })[0]
+
+    // console.log(props.student_id)
+    // console.log(selectedStudent)
 
     if (Object.values(props).includes(null)) {// dragging new student from list
       // console.log(event)
@@ -183,9 +189,7 @@ export default class extends Controller {
         duplicateCell.setAttribute('data-student', '')
       }
       // when dragged from list, hide student in list
-      this.selectedStudent = this.filter.call(this.studentListTarget.children, function(student) {
-        return student.getAttribute('data-student') === props.student_id })[0]
-      this.selectedStudent.classList.add('d-none')
+      selectedStudent.classList.add('d-none')
 
       // add student info, etc to cell
       targetElement.innerText = props.name
@@ -199,18 +203,17 @@ export default class extends Controller {
       const sourceElement = this.filter.call(this.cells, function(cell) {
         return cell.cellIndex === props.col && cell.parentElement.rowIndex === props.row
       })[0]
-      console.log(targetElement.tagName)
+      // console.log(targetElement.tagName)
       if (targetElement.tagName === 'TD') {
         this.swap(sourceElement, targetElement)
         // event.preventDefault()
-      } else if (targetElement.tagName) {
-        console.log('WAH')
+      } else {
         sourceElement.innerText = ''
         sourceElement.style.backgroundColor = 'lightgray'
         sourceElement.setAttribute('data-row', '')
         sourceElement.setAttribute('data-col', '')
         sourceElement.setAttribute('data-student', '')
-        this.selectedStudent.classList.remove('d-none')
+        selectedStudent.classList.remove('d-none')
       }
     }
 
